@@ -1,7 +1,3 @@
-/**
- * Created by Felipe on 06-09-2016.
- */
-
 var LocalStrategy   = require('passport-local').Strategy;
 /**Tirar conexión mysql a un archivo database.js en la carpeta config**/
 var mysql = require('mysql');

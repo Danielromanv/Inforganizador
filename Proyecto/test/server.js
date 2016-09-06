@@ -34,6 +34,9 @@ app.get('/', function (req, res) {
     res.sendfile(__dirname + '/Views/index.html');
 });
 
+app.get('/demo', function (req, res) {
+    res.sendfile(__dirname + '/Views/demo.html');
+});
 
 
 app.get('/login', function (req,res) {
@@ -66,4 +69,3 @@ function isLoggedIn(req, res, next) {
 
 
 app.listen(9000);
-console.log("No enserio no quiero, corriendo en localhost:9000");

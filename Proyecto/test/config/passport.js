@@ -3,7 +3,7 @@
  */
 
 var LocalStrategy   = require('passport-local').Strategy;
-
+/**Tirar conexión mysql a un archivo database.js en la carpeta config**/
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
@@ -13,49 +13,47 @@ var connection = mysql.createConnection({
     database : 'inforganizador'
 });
 
-//connection.query('USE vidyawxx_build2');
+/**Usar Modelo de usuario**/
+var user = require("../app/models/user");
 
 // expose this function to our app using module.exports
+
 module.exports = function(passport) {
 
-    // =========================================================================
-    // passport session setup ==================================================
-    // =========================================================================
-    // required for persistent login sessions
-    // passport needs ability to serialize and unserialize users out of session
-
-    // used to serialize the user for the session
+    /**Serializar y deserializar**/
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user.Username);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        connection.query("select * from users where id = "+id,function(err,rows){
-            done(err, rows[0]);
+        console.log("soy una weá mala en deserialize");
+        console.log(id);
+        console.log("select * from user where Username = '"+id +"'");
+        connection.query("SELECT * FROM `user` WHERE `Username` = '"+id +"'",function(err,rows){
+            if(err){
+                console.log("caidabroootal");
+                done(err);
+            }
+            console.log(rows[0]);
+            done(err, rows[0].Username);
         });
     });
 
-
-    // =========================================================================
-    // LOCAL SIGNUP ============================================================
-    // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
+/**Registro local**/
 
     passport.use('local-signup', new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
             usernameField : 'Username',
             passwordField : 'Password',
-            nombreField : 'Nombre',
-            apellidoField : 'Apellido',
-            emailField: 'Email',
-            passReqToCallback : true // allows us to pass back the entire request to the callback
+            /**Campos obtenidos por framework**/
+            passReqToCallback : true // paso de mensajes
         },
-        function(req, Username, Password, Nombre, Apellido, Email, done) {
-
-            // find a user whose email is the same as the forms email
-            // we are checking to see if the user trying to login already exists
+        function(req, Username, Password, done) {
+            var Nombre = req.body.Nombre;
+            var Apellido = req.body.Apellido;
+            var Email = req.body.Email;
+            /**Recolectar información de un form html**/
+            /**Verificación de existencia de usuario**/
             connection.query("select * from user where Username = '"+Username+"'",function(err,rows){
                 console.log(rows);
                 console.log("above row object");
@@ -65,52 +63,47 @@ module.exports = function(passport) {
                     return done(null, false, req.flash('signupMessage', 'That User is already taken.'));
                 } else {
 
-                    // if there is no user with that User
-                    // create the user
+                    /**Crear usuario si no existe**/
                     var newUserMysql = new Object();
 
-                    newUserMysql.Username    = Username;
-                    newUserMysql.Password = Password;
-                    newUserMysql.Nombre = Nombre;// use the generateHash function in our user model
-                    newUserMysql.Apellido = Apellido;
-                    newUserMysql.Email = Email;
-                    var insertQuery = "INSERT INTO user ( Username, Password, Nombre, Apellido, Email ) values ('" + Username +"','" + Password +"','"+ Nombre +"','"+ Apellido +"','"+ Email +"')";
+                    newUserMysql.Username = Username;
+                    newUserMysql.Password = Password; // Falta generar clave hash
+
+                    var insertQuery = "INSERT INTO user ( Username, Password, Nombre, Apellido, Email, Tipo_aprendizaje, Tipo_usuario ) values ('" + Username +"','" + Password +"','"+ Nombre +"','"+ Apellido +"','"+ Email + "', 0, 0)";
                     console.log(insertQuery);
                     connection.query(insertQuery,function(err,rows){
                         newUserMysql.id = rows.insertId;
-
+                        console.log("mecaí en signup");
                         return done(null, newUserMysql);
                     });
                 }
             });
         }));
 
-    // =========================================================================
-    // LOCAL LOGIN =============================================================
-    // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
+/**Login local**/
 
     passport.use('local-login', new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
+
             usernameField : 'Username',
             passwordField : 'Password',
-            passReqToCallback : true // allows us to pass back the entire request to the callback
+            passReqToCallback : true
         },
-        function(req, email, password, done) { // callback with email and password from our form
+        function(req, Username, Password, done) {
 
             connection.query("SELECT * FROM `user` WHERE `Username` = '" + Username + "'",function(err,rows){
                 if (err)
                     return done(err);
                 if (!rows.length) {
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('loginMessage', 'Usuario no encontrado :(.')); //
                 }
 
                 // if the user is found but the password is wrong
                 if (!( rows[0].Password == Password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('loginMessage', 'Clave incorrecta :(.')); //
 
                 // all is well, return successful user
+                //console.log("Me caí en login");
+                //console.log(rows[0]);
                 return done(null, rows[0]);
 
             });

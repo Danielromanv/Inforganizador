@@ -34,7 +34,7 @@ app.get('/', function (req, res) {
     res.sendfile(__dirname + '/Views/index.html');
 });
 
-app.get('/demo', function (req, res) {
+app.get('/demo', isLoggedIn, function (req, res) {
     res.sendfile(__dirname + '/Views/demo.html');
 });
 
@@ -44,7 +44,7 @@ app.get('/login', function (req,res) {
 });
 
 app.post('/login', passport.authenticate('local-login',{
-    successRedirect: '/',
+    successRedirect: '/demo',
     failureRedirect: '/login',
     failureFlash : true
 }));
@@ -66,6 +66,12 @@ function isLoggedIn(req, res, next) {
         return next();
     res.redirect('/');
 };
+
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 
 
 app.listen(9000);

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inforganizador</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+<body>
+
+<h2>En la siguiente página se te pide que completes 12 frases. Cada frase puede terminarse de cuatro formas distintas<br>
+Ordena la cuatro opciones de cada frase según pienses que se ajustan a tu manera de aprender algo nuevo, tal vez<br>
+en tu trabajo. Trata de pensar en situaciones recientes en las que te enfrentaste con algo nuevo. Numera con un 4<br>
+la terminación que mejor se ajuste a tu forma de aprender y con un 1 la que peor se ajuste. Asegurate de asignar<br>
+un número a todas las terminaciones de cada una de las 12 frases.<br></h2>
+
+<b>Recuerde</b><br>
+<b>4 --></b> Lo que más se parece a ti.<br>
+<b>3 --></b> Lo segundo que más se parece a ti.<br>
+<b>2 --></b> Lo tercero que más se parece a ti.<br>
+<b>1 --></b> Lo que menos se parece a ti.<br>
+
+<div ng-app="myApp" ng-controller="encuestaCtrl">
+    <ul>
+        <li ng-repeat="x in preguntas">
+            {{x.texto + ',' + x.pregunta1 +',' + x.pregunta2 +',' + x.pregunta3 +',' + x.pregunta4}}
+        </li>
+    </ul>
+</div>
+
+<script src ="/controllers/encuesta.js"></script>
+
+</body>
+</html>

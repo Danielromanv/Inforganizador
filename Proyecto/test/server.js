@@ -39,6 +39,14 @@ app.get('/', function (req, res) {
     res.sendfile(__dirname + '/Views/index.html');
 });
 
+app.get('/font-awesome.min.css', function (req, res) {
+    res.sendfile(__dirname + '/Views/font-awesome.min.css');
+});
+
+app.get('/bootstrap.min.css',function (req, res) {
+    res.sendfile(__dirname + '/Views/bootstrap.min.css');
+});
+
 app.get('/demo', isLoggedIn, function (req, res) {
     res.sendfile(__dirname + '/Views/demo.html');
 });

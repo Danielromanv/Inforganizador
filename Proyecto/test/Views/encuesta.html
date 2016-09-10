@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Inforganizador</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
 </head>
 <body>
 
@@ -18,16 +18,107 @@ un número a todas las terminaciones de cada una de las 12 frases.<br></h2>
 <b>3 --></b> Lo segundo que más se parece a ti.<br>
 <b>2 --></b> Lo tercero que más se parece a ti.<br>
 <b>1 --></b> Lo que menos se parece a ti.<br>
-
+<!--
 <div ng-app="myApp" ng-controller="encuestaCtrl">
     <ul>
         <li ng-repeat="x in preguntas">
-            {{x.texto + ',' + x.pregunta1 +',' + x.pregunta2 +',' + x.pregunta3 +',' + x.pregunta4}}
+            {{x.texto}}<br>
+            {{x.pregunta1}}<input type="text" name="hola"><br>
+            {{x.pregunta2}}<input type="text" name="hola2"><br>
+            {{x.pregunta3}}<input type="text" name="hola3"><br>
+            {{x.pregunta4}}<input type="text" name="hola4"><br>
         </li>
     </ul>
-</div>
+</div>-->
+<form action="/encuesta" method="post">
 
-<script src ="/controllers/encuesta.js"></script>
-
+    <ul>
+        <li>
+            Cuando aprendo...<br>
+            Me gusta vivir sensaciones<input type="text", name="EC1"><br>
+            Me gusta pensar sobre ideas<input type="text", name="OR1"><br>
+            Me gusta estar haciendo cosas<input type="text", name="CA1"><br>
+            Me gusta observar y escuchar<input type="text", name="EA1"><br>
+        </li>
+        <li>
+            Aprendo mejor cuando<br>
+            Escucho y observo cuidadosamente<input type="text", name="EC2"><br>
+            Confio en el pensamiento lógico<input type="text", name="OR2"><br>
+            Confio en mi intuición y sentimientos<input type="text", name="CA2"><br>
+            Trabajo duro para lograr hacer las cosas<input type="text", name="EA2"><br>
+        </li>
+        <li>
+            Cuando estoy aprendiendo<br>
+            tiendo a usar el razonamiento<input type="text", name="EC3"><br>
+            Soy responsable con lo que hago<input type="text", name="OR3"><br>
+            Soy callado y reservado<input type="text", name="CA3"><br>
+            Tengo fuertes sensaciones y reacciones<input type="text", name="EA3"><br>
+        </li>
+        <li>
+            Yo aprendo...<br>
+            Sintiendo<input type="text", name="EC4"><br>
+            Haciendo<input type="text", name="OR4"><br>
+            Observando<input type="text", name="CA4"><br>
+            Pensando<input type="text", name="EA4"><br>
+        </li>
+        <li>
+            Cuando aprendo...<br>
+            Estoy abierto a nuevas experiencias<input type="text", name="EC5"><br>
+            Observo todos los aspectos del asunto<input type="text", name="OR5"><br>
+            Me gusta analizar las cosas, descomponerlas en sus partes<input type="text", name="CA5"><br>
+            Me gusta probar e intentar hacer las cosas<input type="text", name="EA5"><br>
+        </li>
+        <li>
+            Cuando estoy aprendiendo...<br>
+            Soy una persona observadora<input type="text", name="EC6"><br>
+            Soy una persona activa<input type="text", name="OR6"><br>
+            Soy una persona intuitiva<input type="text", name="CA6"><br>
+            Soy una persona lógica<input type="text", name="EA6"><br>
+        </li>
+        <li>
+            Yo aprendo mejor de...<br>
+            La observación<input type="text", name="EC7"><br>
+            La relación con otras personas<input type="text", name="OR7"><br>
+            Las teorías racionales<input type="text", name="CA7"><br>
+            La oportunidad de probar y practicar<input type="text", name="EA7"><br>
+        </li>
+        <li>
+            Cuando aprendo...<br>
+            Me gusta ver los resultados de mi trabajo<input type="text", name="EC8"><br>
+            Me gustan las ideas y teorías<input type="text", name="OR8"><br>
+            Me tomo mi tiempo antes de actuar<input type="text", name="CA8"><br>
+            Me siento personalmente involucrado en las cosas<input type="text", name="EA8"><br>
+        </li>
+        <li>
+            Aprendo mejor cuando...<br>
+            Confio en mis observaciones<input type="text", name="EC9"><br>
+            Confio en mis sentimientos<input type="text", name="OR9"><br>
+            Puedo probar por mi cuenta<input type="text", name="CA9"><br>
+            Confio en mis ideas<input type="text", name="EA9"><br>
+        </li>
+        <li>
+            Cuando estoy aprendiendo...<br>
+            Soy una persona reservada<input type="text", name="EC10"><br>
+            Soy una persona receptiva<input type="text", name="OR10"><br>
+            Soy una persona responsable<input type="text", name="CA10"><br>
+            Soy una persona racional<input type="text", name="EA10"><br>
+        </li>
+        <li>
+            Cuando aprendo...<br>
+            Me involucro<input type="text", name="EC11"><br>
+            Me gusta observar<input type="text", name="OR11"><br>
+            Evaluo las cosas<input type="text", name="CA11"><br>
+            Me gusta ser activo<input type="text", name="EA11"><br>
+        </li>
+        <li>
+            Aprendo mejor cuando...<br>
+            Analizo ideas<input type="text", name="EC12"><br>
+            Soy receptivo y abierto<input type="text", name="OR12"><br>
+            Soy cuidadoso<input type="text", name="CA12"><br>
+            Soy práctico<input type="text", name="EA12"><br>
+        </li>
+    </ul>
+    <input type="submit"> Enviar </input>
+</form>
 </body>
 </html>

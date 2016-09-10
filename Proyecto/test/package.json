@@ -15,10 +15,7 @@
     "mysql": "^2.11.1",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "angular":          "1.2.16",
-    "angular-route":    "1.2.16",
-    "angular-sanitize": "1.2.16",
-    "angular-mocks":    "1.2.16"
+    "angular":"1.5.8"
   }
 }
 

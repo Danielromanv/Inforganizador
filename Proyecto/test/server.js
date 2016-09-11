@@ -35,6 +35,11 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./config/passport')(passport);
 
 /**Rutas... a futuro tirarlas a un archivo routes.js**/
+
+app.get('/app/controllers', function (req, res) {
+    res.sendfile(__dirname + '/app/controllers');
+});
+
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/Views/index.html');
 });

@@ -23,15 +23,11 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        console.log("soy una weá mala en deserialize");
-        console.log(id);
-        console.log("select * from user where Username = '"+id +"'");
         connection.query("SELECT * FROM `user` WHERE `Username` = '"+id +"'",function(err,rows){
             if(err){
                 console.log("caidabroootal");
                 done(err);
             }
-            console.log(rows[0]);
             done(err, rows[0].Username);
         });
     });
@@ -66,10 +62,9 @@ module.exports = function(passport) {
                     newUserMysql.Password = Password; // Falta generar clave hash
 
                     var insertQuery = "INSERT INTO user ( Username, Password, Nombre, Apellido, Email, Tipo_aprendizaje, Tipo_usuario ) values ('" + Username +"','" + Password +"','"+ Nombre +"','"+ Apellido +"','"+ Email + "', 0, 0)";
-                    console.log(insertQuery);
+
                     connection.query(insertQuery,function(err,rows){
                         newUserMysql.id = rows.insertId;
-                        console.log("mecaí en signup");
                         return done(null, newUserMysql);
                     });
                 }

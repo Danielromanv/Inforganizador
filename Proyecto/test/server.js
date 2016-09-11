@@ -14,7 +14,12 @@ var session = require('express-session');
 var mysql = require('mysql');
 var configDB = require('./config/database.js');
 
-
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'admin',
+    database : 'inforganizador'
+});
 
 app.use(morgan('dev')); // request por consola
 app.use(cookieParser()); // leer cookies
@@ -59,12 +64,34 @@ app.post('/signup', passport.authenticate('local-signup', {
     failureFlash : true // allow flash messages
 }));
 
+app.get('/encuesta', function (req,res) {
+    res.sendfile(__dirname + '/Views/encuesta.html');
+})
 
-/**Función que verifica si se está loggeado, redirige a la main page si no**/
+
+/**Función que verifica si se está loggeado, redirige a la main page, a no ser que sea un usuario de tipo alumno
+ * que no ha respondido la encuesta, en ese caso redirecciona a la vista de encuesta c:**/
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    res.redirect('/');
+    if (req.isAuthenticated()) {
+        var username = req.user;
+        connection.query("select * from inforganizador.user where Username ='" + username + "'", function (err, rows) {
+            if (err) {
+                console.log("Error, falló la consulta sql");
+            }
+            if (rows[0].Tipo_usuario == 0) {
+                if (rows[0].Tipo_aprendizaje == 0) {
+                    res.redirect('/encuesta');
+                }
+            }
+            else {
+                return next();
+            }
+        })
+    }
+    else{
+        res.redirect('/');
+    }
+
 };
 
 app.get('/logout', function(req, res) {

@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `inforganizador` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `inforganizador`;
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: inforganizador
 -- ------------------------------------------------------
--- Server version	5.7.13-log
+-- Server version	5.7.14-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -102,10 +102,10 @@ DROP TABLE IF EXISTS `pregunta_encuesta`;
 CREATE TABLE `pregunta_encuesta` (
   `ID_pregunta` int(10) NOT NULL,
   `Texto` varchar(50) DEFAULT NULL,
-  `Opcion_1` varchar(50) DEFAULT NULL,
-  `Opcion_2` varchar(50) DEFAULT NULL,
-  `Opcion_3` varchar(50) DEFAULT NULL,
-  `Opcion_4` varchar(50) DEFAULT NULL,
+  `Opcion_1` varchar(100) DEFAULT NULL,
+  `Opcion_2` varchar(100) DEFAULT NULL,
+  `Opcion_3` varchar(100) DEFAULT NULL,
+  `Opcion_4` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID_pregunta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -116,6 +116,7 @@ CREATE TABLE `pregunta_encuesta` (
 
 LOCK TABLES `pregunta_encuesta` WRITE;
 /*!40000 ALTER TABLE `pregunta_encuesta` DISABLE KEYS */;
+INSERT INTO `pregunta_encuesta` VALUES (1,'Cuando aprendo...','Me gusta vivir sensaciones','Me gusta pensar sobre ideas','Me gusta estar haciendo cosas','Me gusta observar y escuchar'),(2,'Aprendo mejor cuando','Escucho y observo cuidadosamente','Confio en el pensamiento lógico','Confio en mi intuición y sentimientos','Trabajo duro para lograr hacer las cosas'),(3,'Cuando estoy aprendiendo...','tiendo a usar el razonamiento','Soy responsable con lo que hago','Soy callado y reservado','Tengo fuertes sensaciones y reacciones'),(4,'Yo aprendo...','Sintiendo','Haciendo','Observando','Pensando'),(5,'Cuando aprendo...','Estoy abierto a nuevas experiencias','Observo todos los aspectos del asunto','Me gusta analizar las cosas, descomponerlas en sus partes','Me gusta probar e intentar hacer las cosas'),(6,'Cuando estoy aprendiendo...','Soy una persona observadora','Soy una persona activa','Soy una persona intuitiva','Soy una persona lógica'),(7,'Yo aprendo mejor de...','La observación','La relación con otras personas','Las teorías racionales','La oportunidad de probar y practicar'),(8,'Cuando aprendo...','Me gusta ver los resultados de mi trabajo','Me gustan las ideas y teorías','Me tomo mi tiempo antes de actuar','Me siento personalmente involucrado en las cosas'),(9,'Aprendo mejor cuando...','Confio en mis observaciones','Confio en mis sentimientos','Puedo probar por mi cuenta','Confio en mis ideas'),(10,'Cuando estoy aprendiendo...','Soy una persona reservada','Soy una persona receptiva','Soy una persona responsable','Soy una persona racional'),(11,'Cuando aprendo...','Me involucro','Me gusta observar','Evaluo las cosas','Me gusta ser activo'),(12,'Aprendo mejor cuando...','Analizo ideas','Soy receptivo y abierto','Soy cuidadoso','Soy práctico');
 /*!40000 ALTER TABLE `pregunta_encuesta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,6 +197,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('a','a','a','a','a',4,0),('chao','chao','chao','chao','chao',0,0),('goferk','goferk','Goferk','Youtube','goferk@goferk.com',0,0),('hola','hola','hola','hola','hola',3,0),('iuser','pasword','iuser','isure','iuser@iuser.com',0,0),('jaime','jaime','jaime','jaime','jaime',3,0),('jamon','jamon','jamon','jamon','jamon@jamon',4,0),('java','java','java','java','java@java.cl',0,0),('mansan','mansan','mansan','mansan','mansan',4,0),('Maurizios','mauro','Mau','','',0,1),('mauro','mauro','mauro','maur','mauro',0,0),('Pipexxgfx','mauro','Felipe','Vega','mauro@mauro.cl',0,1),('profe','profe','profe','profe','profe@profe',0,0),('testing','testing','testing','testing','testing',3,0),('vitokazo','vitokazo','vitokazo','vitokazo','vitokazo',0,0),('w','w','w','w','w',0,0),('yiyo','yiyo','yiyo','yiyo','yiyo@yiyo.com',0,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,4 +270,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-04 19:47:42
+-- Dump completed on 2016-09-10 23:16:25

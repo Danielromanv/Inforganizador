@@ -1,31 +1,32 @@
 /**
  * Created by Felipe on 11-09-2016.
  */
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'admin',
-    database : 'inforganizador'
-});
 
-var filas = new Array;
-
-connection.query("select * from inforganizador.pregunta_encuesta",function (err,rows) {
-   if(err){
-       console.log("falló la consulta sql :(");
-   }
-   for(var i = 0; i < rows.length; i++){
-       filas[i] = rows[i];
-       console.log(rows[i]);
-   }
-});
-
-angular.module('myApp',[]).controller('namesCtrl',function ($scope) {
-    for(var i = 0; i < rows.length; i++){
-        $scope.preguntas =[{texto:filas[i].Texto, pregunta1:filas[i].Opcion_1, pregunta2:filas[i].Opcion_2,pregunta3:filas[i].Opcion_3,pregunta4:filas[i].Opcion_4}]
+function validadorCampos(){
+    console.log("entré a la función");
+    var alert = "No repetir números por favor c:";
+    if(document.forms["formulario"]["EC1"].value == document.forms["formulario"]["OR1"].value){
+        alert(alert);
+        return false;
     }
-
-
-
-})
+    else if(document.forms["formulario"]["EC1"].value == document.forms["formulario"]["CA1"].value){
+        alert(alert);
+        return false;
+    }
+    else if(document.forms["formulario"]["EC1"].value == document.forms["formulario"]["EA1"].value){
+        alert(alert);
+        return false;
+    }
+    else if(document.forms["formulario"]["OR1"].value == document.forms["formulario"]["CA1"].value){
+        alert(alert);
+        return false;
+    }
+    else if(document.forms["formulario"]["OR1"].value == document.forms["formulario"]["EA1"].value){
+        alert(alert);
+        return false;
+    }
+    else if(document.forms["formulario"]["CA1"].value == document.forms["formulario"]["EA1"].value){
+        return false;
+    }
+    return true;
+}

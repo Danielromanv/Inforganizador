@@ -47,6 +47,10 @@ app.get('/bootstrap.min.css',function (req, res) {
     res.sendfile(__dirname + '/Views/bootstrap.min.css');
 });
 
+app.get('/encuesta.js',function (req, res) {
+    res.sendfile(__dirname + '/app/controllers/encuesta.js');
+});
+
 app.get('/demo', isLoggedIn, function (req, res) {
     res.sendfile(__dirname + '/Views/demo.html');
 });

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inforganizador</title>
+    <script src="/bower_components/angular/angular.js"></script>
+</head>
+<body>
+
+<h2>En la siguiente página se te pide que completes 12 frases. Cada frase puede terminarse de cuatro formas distintas<br>
+Ordena la cuatro opciones de cada frase según pienses que se ajustan a tu manera de aprender algo nuevo, tal vez<br>
+en tu trabajo. Trata de pensar en situaciones recientes en las que te enfrentaste con algo nuevo. Numera con un 4<br>
+la terminación que mejor se ajuste a tu forma de aprender y con un 1 la que peor se ajuste. Asegurate de asignar<br>
+un número a todas las terminaciones de cada una de las 12 frases.<br></h2>
+
+<b>Recuerde</b><br>
+<b>4 --></b> Lo que más se parece a ti.<br>
+<b>3 --></b> Lo segundo que más se parece a ti.<br>
+<b>2 --></b> Lo tercero que más se parece a ti.<br>
+<b>1 --></b> Lo que menos se parece a ti.<br>
+<!--
+<div ng-app="myApp" ng-controller="encuestaCtrl">
+    <ul>
+        <li ng-repeat="x in preguntas">
+            {{x.texto}}<br>
+            {{x.pregunta1}}<input type="text" name="hola"><br>
+            {{x.pregunta2}}<input type="text" name="hola2"><br>
+            {{x.pregunta3}}<input type="text" name="hola3"><br>
+            {{x.pregunta4}}<input type="text" name="hola4"><br>
+        </li>
+    </ul>
+</div>-->
+<form name="formulario" action="/encuesta" onsubmit="validadorCampos()" method="post">
+
+    <ul>
+        <li>
+            Cuando aprendo...<br>
+            Me gusta vivir sensaciones<input type="number" name="EC1" min="1" max="4" required="required" id="pregunta1_1"><br>
+            Me gusta pensar sobre ideas<input type="number" name="OR1" min="1" max="4" required="required" id="pregunta1_2"><br>
+            Me gusta estar haciendo cosas<input type="number" name="CA1" min="1" max="4" required="required" id="pregunta1_3"><br>
+            Me gusta observar y escuchar<input type="number" name="EA1" min="1" max="4" required="required" id="pregunta1_4"><br>
+        </li>
+        <li>
+            Aprendo mejor cuando<br>
+            Escucho y observo cuidadosamente<input type="number" name="EC2" min="1" max="4" required="required"><br>
+            Confio en el pensamiento lógico<input type="number" name="OR2" min="1" max="4" required="required"><br>
+            Confio en mi intuición y sentimientos<input type="number" name="CA2" min="1" max="4" required="required"><br>
+            Trabajo duro para lograr hacer las cosas<input type="number" name="EA2" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Cuando estoy aprendiendo<br>
+            tiendo a usar el razonamiento<input type="number" name="EC3" min="1" max="4" required="required"><br>
+            Soy responsable con lo que hago<input type="number" name="OR3" min="1" max="4" required="required"><br>
+            Soy callado y reservado<input type="number" name="CA3" min="1" max="4" required="required"><br>
+            Tengo fuertes sensaciones y reacciones<input type="number" name="EA3" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Yo aprendo...<br>
+            Sintiendo<input type="number", name="EC4" min="1" max="4" required="required"><br>
+            Haciendo<input type="number", name="OR4" min="1" max="4" required="required"><br>
+            Observando<input type="number", name="CA4" min="1" max="4" required="required"><br>
+            Pensando<input type="number", name="EA4" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Cuando aprendo...<br>
+            Estoy abierto a nuevas experiencias<input type="number" name="EC5" min="1" max="4" required="required"><br>
+            Observo todos los aspectos del asunto<input type="number", name="OR5" min="1" max="4" required="required"><br>
+            Me gusta analizar las cosas, descomponerlas en sus partes<input type="number" name="CA5" min="1" max="4" required="required"><br>
+            Me gusta probar e intentar hacer las cosas<input type="number" name="EA5" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Cuando estoy aprendiendo...<br>
+            Soy una persona observadora<input type="number" name="EC6" min="1" max="4" required="required"><br>
+            Soy una persona activa<input type="number" name="OR6" min="1" max="4" required="required"><br>
+            Soy una persona intuitiva<input type="number" name="CA6" min="1" max="4" required="required"><br>
+            Soy una persona lógica<input type="number" name="EA6" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Yo aprendo mejor de...<br>
+            La observación<input type="number" name="EC7" min="1" max="4" required="required"><br>
+            La relación con otras personas<input type="number" name="OR7" min="1" max="4" required="required"><br>
+            Las teorías racionales<input type="number" name="CA7" min="1" max="4" required="required"><br>
+            La oportunidad de probar y practicar<input type="number" name="EA7" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Cuando aprendo...<br>
+            Me gusta ver los resultados de mi trabajo<input type="number" name="EC8" min="1" max="4" required="required"><br>
+            Me gustan las ideas y teorías<input type="number" name="OR8" min="1" max="4" required="required"><br>
+            Me tomo mi tiempo antes de actuar<input type="number" name="CA8" min="1" max="4" required="required"><br>
+            Me siento personalmente involucrado en las cosas<input type="number" name="EA8" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Aprendo mejor cuando...<br>
+            Confio en mis observaciones<input type="number" name="EC9" min="1" max="4" required="required"><br>
+            Confio en mis sentimientos<input type="number" name="OR9" min="1" max="4" required="required"><br>
+            Puedo probar por mi cuenta<input type="number" name="CA9" min="1" max="4" required="required"><br>
+            Confio en mis ideas<input type="number" name="EA9" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Cuando estoy aprendiendo...<br>
+            Soy una persona reservada<input type="number" name="EC10" min="1" max="4" required="required"><br>
+            Soy una persona receptiva<input type="number" name="OR10" min="1" max="4" required="required"><br>
+            Soy una persona responsable<input type="number" name="CA10" min="1" max="4" required="required"><br>
+            Soy una persona racional<input type="number" name="EA10" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Cuando aprendo...<br>
+            Me involucro<input type="number" name="EC11" min="1" max="4" required="required"><br>
+            Me gusta observar<input type="number" name="OR11" min="1" max="4" required="required"><br>
+            Evaluo las cosas<input type="number" name="CA11" min="1" max="4" required="required"><br>
+            Me gusta ser activo<input type="number" name="EA11" min="1" max="4" required="required"><br>
+        </li>
+        <li>
+            Aprendo mejor cuando...<br>
+            Analizo ideas<input type="number" name="EC12" min="1" max="4" required="required"><br>
+            Soy receptivo y abierto<input type="number" name="OR12" min="1" max="4" required="required"><br>
+            Soy cuidadoso<input type="number" name="CA12" min="1" max="4" required="required"><br>
+            Soy práctico<input type="number" name="EA12" min="1" max="4" required="required"><br>
+        </li>
+    </ul>
+    <input type="button" name="Enviar" value="Enviar" onclick="validadorCampos()">
+</form>
+<script src="encuesta.js"></script>
+</body>
+</html>

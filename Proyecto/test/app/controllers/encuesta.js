@@ -305,6 +305,6 @@ function validadorCampos(){
         window.alert(alert);
         return false;
     }
-
+    formulario.submit();
     return true;
 }

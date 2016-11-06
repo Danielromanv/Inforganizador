@@ -3,3 +3,11 @@
  */
 var mysql = require('mysql');
 
+var conexionDB = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'admin',
+    database : 'inforganizador'
+});
+
+module.exports = conexionDB;

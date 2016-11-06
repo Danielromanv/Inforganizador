@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,40 +91,19 @@
         <!--Contenido columna Izquierda.-->
         <div class="col-sm-2 sidenav">
         </div>
-    
+
         <!--Contenido principal-->
-        <div class="col-sm-8 text-left">
-          <div class="container">
-          <style>
-              .jumbotron {
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-size: cover;
-                  background-color: transparent;
-              }
-              h1{
-                  color: Black;
-              }
-
-              body{
-
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-repeat: inherit;
-                  background-size: cover;
-                  min-height: 100%;
-              }
-
-          </style>
-
-              <div class="jumbotron text-center">
-                  <h1><font color = "black">INFORGANIZADOR</font></h1>
-                  <h5><font color = "black">Organizador de contenido según perfil de aprendizaje</font></h5>
-
-
-                  <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Ingresar</a>
-                  <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Registrarse</a>
-              </div>
-
-          </div>
+        <div class="col-sm-8 text-left" ng-controller = "panelAdmin">
+          <form action="/panelAdmin" method="post" name ="formulario">
+            <input type="text" ng-model = "usuario.username" name = "usuario" required="required">
+            <input type="password" ng-model = "usuario.password" name = "password" required="required">
+            <input type="text" ng-model = "usuario.nombre" name = "nombre" required="required">
+            <input type="text" ng-model = "usuario.apellido" name = "apellido" required="required">
+            <input type="text" ng-model = "usuario.email" name = "email" required="required">
+            <input type="number" ng-model = "usuario.tipo_usuario" name ="tipo_usuario" required="required">
+            <button class = "btn btn-default" ng-click="insertar()">Enviar</button>
+          </form>
+          <h1>{{usuario.nombre}}</h1>
         </div>
 
         <!--Contenido columna derecha-->
@@ -141,7 +119,7 @@
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
 <script src="app.js"></script>
->
+<script src="/controllers/panelAdmin.js"></script>
 </body>
 
 </html>

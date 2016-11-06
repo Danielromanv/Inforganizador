@@ -24,7 +24,7 @@ class usuarioCRUD{
         console.log(err);
         console.log(rows);
         //console.log("above row object");
-        
+
         if (err)
             console.log(err);
             console.log("hola");
@@ -50,9 +50,22 @@ class usuarioCRUD{
               }
             });
         }
+
     });
     //console.log("voy a salir, adiox");
     //return false;
+  }
+
+  update(){
+    console.log("Función para realizar update de usuario");
+  }
+
+  delete(){
+    console.log("Función para realizar un delete de usuario");
+  }
+
+  select(){
+    console.log("Función para realizar select de la tabla de usuarios");
   }
 }
 module.exports = usuarioCRUD;

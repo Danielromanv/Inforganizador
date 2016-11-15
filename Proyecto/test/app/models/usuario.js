@@ -18,9 +18,17 @@ class usuarioCRUD{
     //this.conexionDB = require('./config/database');
   }
   insert(){
-    var selectQuery = "SELECT * FROM inforganizador.user WHERE Username = '"+ this.usuario +"'";
-    console.log("soy una query   " + selectQuery);
-    connection.query(selectQuery,function(rows,err){
+    var newUserMysql = {
+      usuario: this.usuario,
+      password: this.password,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      email: this.email,
+      tipo_usuario: this.tipo_usuario
+    };
+    var selectQuery = "SELECT * FROM inforganizador.user WHERE Username = ?";
+    //console.log("soy una query   " + selectQuery);
+    connection.query(selectQuery,[newUserMysql.usuario],function(rows,err){
         console.log(err);
         console.log(rows);
         //console.log("above row object");
@@ -29,7 +37,6 @@ class usuarioCRUD{
             console.log(err);
             console.log("hola");
             return false;
-            console.log("hahaha");
             //return done(err);
         if (rows.length) {
             //return done(null, false, req.flash('signupMessage', 'That User is already taken.'));
@@ -39,10 +46,11 @@ class usuarioCRUD{
         }
         else {
             console.log();("insertion queryyy");
-            var insertQuery = "INSERT INTO inforganizador.user ( Username, Password, Nombre, Apellido, Email, Tipo_aprendizaje, Tipo_usuario ) values ('" + this.usuario +"','" + this.password +"','"+ this.nombre +"','"+ this.apellido +"','"+ this.email + "', 0, "+ this.tipo_usuario +")";
-            connection.query(insertQuery,function(err,rows){
+            var insertQuery = "INSERT INTO inforganizador.user ( Username, Password, Nombre, Apellido, Email, Tipo_aprendizaje, Tipo_usuario ) values (?,?,?,?,?,?,?)";
+            connection.query(insertQuery,[newUserMysql.nombre, newUserMysql.password, newUserMysql.nombre, newUserMysql.apellido, newUserMysql.email, newUserMysql.tipo_usuario],function(err,rows){
               if(err){
                 console.log("error en la query!: " + err);
+                return false;
               }
               else{
                 //return done(null);
@@ -57,6 +65,8 @@ class usuarioCRUD{
   }
 
   update(){
+    //var selectQuery = "SELECT * FROM inforganizador.user WHERE Username = '"+ this.usuario +"'";
+    //var updateQuery = "UPDATE inforganizador.user SET Username ";
     console.log("Función para realizar update de usuario");
   }
 

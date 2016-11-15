@@ -115,9 +115,9 @@ app.get('/panelAdmin', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
+/**
 app.post('/panelAdmin', function(req, res){
   var usuarioCRUD = require('./app/models/usuario');
-
   var newUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
   var resultado = newUsuario.insert()
   console.log(resultado);
@@ -128,6 +128,22 @@ app.post('/panelAdmin', function(req, res){
   else if(resultado == true){
     console.log("LA HICE");
     res.redirect('/encuesta');
+  }
+});
+**/
+
+app.get('/panelAdmin/insertUser', function(req, res){
+  var usuarioCRUD = require('./app/models/usuario');
+  var newUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
+  var resultado = newUsuario.insert()
+  console.log(resultado);
+  if(resultado == false){
+    console.log("no la hice");
+    return res.status(400).send("Error al crear un nuevo usuario, intenta más tarde");
+  }
+  else if(resultado == true){
+    console.log("LA HICE");
+    return res.status(200).send("Usuario ingresado con exito");
   }
 });
 

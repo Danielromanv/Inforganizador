@@ -94,7 +94,9 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-left" ng-controller = "panelAdmin">
-          <form action="/panelAdmin" method="post" name ="formulario">
+          <h1>{{mensaje}}</h1>
+          <!--action="/panelAdmin" method="post" name ="formulario"-->
+          <form>
             <input type="text" ng-model = "usuario.username" name = "usuario" required="required">
             <input type="password" ng-model = "usuario.password" name = "password" required="required">
             <input type="text" ng-model = "usuario.nombre" name = "nombre" required="required">

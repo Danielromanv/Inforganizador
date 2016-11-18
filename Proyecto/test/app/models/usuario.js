@@ -29,8 +29,6 @@ class usuarioCRUD{
     var selectQuery = "SELECT * FROM inforganizador.user WHERE Username = ?";
     //console.log("soy una query   " + selectQuery);
     connection.query(selectQuery,[newUserMysql.usuario],function(rows,err){
-        console.log(err);
-        console.log(rows);
         //console.log("above row object");
 
         if (err)

@@ -1,13 +1,6 @@
-app.factory("insertFactory",function($http){
-  var servicios = {
-    insertUser: function(){
-      return $http.get('/panelAdmin/insertUser');
-    }
-  }
-  return servicios;
-});
 
-app.controller('panelAdmin',['$scope',function($scope, insertFactory){
+
+app.controller('panelAdmin',['$scope','$http',function($scope, $http){
   $scope.usuario = {
     usuario:'',
     password:'',
@@ -16,19 +9,44 @@ app.controller('panelAdmin',['$scope',function($scope, insertFactory){
     email:'',
     tipo_usuario:''
   }
+  $scope.curso = {
+    nombreCurso:''
+  }
   $scope.mensaje = '';
-  $scope.insertar = function ($http){
+  $scope.insertar = function (){
     var email = new RegExp(/[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@(sansano.usm.cl|usm.cl|alumnos.usm.cl)/);
     if(email.test($scope.usuario.email) == false){
       window.alert("Ingresa un email válido");
       return false;
     }
-    insertFactory.insertUser().then(function(response){
+    var valores = $scope.usuario;
+    /** Enviar Petición al servidor **/
+    
+    $http({
+      method: 'POST',
+      url: '/insertUser',
+      data: valores
+    }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
-    }, function(response){
+    }, function errorCallback(response, data){
       $scope.mensaje = response.data;
     })
   }
+
+  $scope.insertarCurso = function(){
+    var valores = $scope.curso;
+    /** Enviar petición al servidor **/
+    $http({
+      method: 'POST',
+      url: '/insertCurso',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
 }]);
 
 

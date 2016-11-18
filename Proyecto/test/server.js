@@ -115,25 +115,18 @@ app.get('/panelAdmin', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
-/**
-app.post('/panelAdmin', function(req, res){
-  var usuarioCRUD = require('./app/models/usuario');
-  var newUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
-  var resultado = newUsuario.insert()
-  console.log(resultado);
-  if(resultado == false){
-    console.log("no la hice");
-    res.redirect('/panelAdmin');
-  }
-  else if(resultado == true){
-    console.log("LA HICE");
-    res.redirect('/encuesta');
-  }
+app.get('/crearUsuario', function(req, res){
+  res.sendfile(__dirname + '/Views/crearUsuario.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
 });
-**/
 
-app.get('/panelAdmin/insertUser', function(req, res){
+
+app.post('/insertUser', function(req, res){
   var usuarioCRUD = require('./app/models/usuario');
+  console.log(req.body.usuario);
+
   var newUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
   var resultado = newUsuario.insert()
   console.log(resultado);
@@ -145,6 +138,13 @@ app.get('/panelAdmin/insertUser', function(req, res){
     console.log("LA HICE");
     return res.status(200).send("Usuario ingresado con exito");
   }
+});
+
+app.get('/crearCurso', function(req, res){
+  res.sendfile(__dirname + '/Views/crearCurso.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
 });
 
 /**Función que verifica si se está loggeado, redirige a la main page, a no ser que sea un usuario de tipo alumno

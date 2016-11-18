@@ -1,6 +1,10 @@
 
 
 app.controller('panelAdmin',['$scope','$http',function($scope, $http){
+  $scope.resultadosQuery = {
+
+  }
+
   $scope.usuario = {
     usuario:'',
     password:'',
@@ -9,19 +13,35 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     email:'',
     tipo_usuario:''
   }
+
   $scope.curso = {
     nombreCurso:''
   }
+
   $scope.mensaje = '';
+
   $scope.insertar = function (){
     var email = new RegExp(/[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@(sansano.usm.cl|usm.cl|alumnos.usm.cl)/);
     if(email.test($scope.usuario.email) == false){
       window.alert("Ingresa un email válido");
       return false;
     }
+    if($scope.usuario.tipo_usuario ==="Alumno"){
+      $scope.usuario.tipo_usuario = 0;
+    }
+    else if($scope.usuario.tipo_usuario ==="Profesor"){
+      $scope.usuario.tipo_usuario = 1;
+    }
+    else if($scope.usuario.tipo_usuario ==="Administrador"){
+      $scope.usuario.tipo_usuario = 2;
+    }
+    else{
+      window.alert("Por favor, selecciona un tipo de usuario");
+      return false
+    }
     var valores = $scope.usuario;
     /** Enviar Petición al servidor **/
-    
+
     $http({
       method: 'POST',
       url: '/insertUser',
@@ -46,6 +66,19 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       $scope.mensaje = response.data;
     })
   }
+
+  $scope.queryCursos = function(){
+    $http({
+      method: 'GET',
+      url: '/obtenerCursos'
+    }).then(function successCallback(response){
+      $scope.resultadosQuery = response.data;
+    }, function errorCallback(response){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.queryCursos();
 
 }]);
 

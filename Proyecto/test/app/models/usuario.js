@@ -17,7 +17,7 @@ class usuarioCRUD{
     this.tipo_usuario = tipo_usuario;
     //this.conexionDB = require('./config/database');
   }
-  insert(){
+  insert(res){
     var newUserMysql = {
       usuario: this.usuario,
       password: this.password,
@@ -28,31 +28,30 @@ class usuarioCRUD{
     };
     var selectQuery = "SELECT * FROM inforganizador.user WHERE Username = ?";
     //console.log("soy una query   " + selectQuery);
-    connection.query(selectQuery,[newUserMysql.usuario],function(rows,err){
+    console.log(newUserMysql.usuario);
+    connection.query(selectQuery,[newUserMysql.usuario],function(err, rows){
         //console.log("above row object");
+        if (err){
+            console.log("error sql " + err);
+            return res.status(400).send("Error al verificar si existe el usuario, intenta más tarde");
+        }
 
-        if (err)
-            console.log(err);
-            console.log("hola");
-            return false;
-            //return done(err);
         if (rows.length) {
             //return done(null, false, req.flash('signupMessage', 'That User is already taken.'));
-            console.log("Me di cuenta de que la query arrojó resultados c:");
             //return done(null);
-            return false;
+            return res.status(400).send("El username está en uso, intenta con otro");
         }
         else {
             console.log();("insertion queryyy");
-            var insertQuery = "INSERT INTO inforganizador.user ( Username, Password, Nombre, Apellido, Email, Tipo_aprendizaje, Tipo_usuario ) values (?,?,?,?,?,?,?)";
-            connection.query(insertQuery,[newUserMysql.nombre, newUserMysql.password, newUserMysql.nombre, newUserMysql.apellido, newUserMysql.email, newUserMysql.tipo_usuario],function(err,rows){
+            var insertQuery = "INSERT INTO inforganizador.user ( Username, Password, Nombre, Apellido, Email, Tipo_aprendizaje, Tipo_usuario ) values (?,?,?,?,?,?,?);";
+            connection.query(insertQuery,[newUserMysql.usuario, newUserMysql.password, newUserMysql.nombre, newUserMysql.apellido, newUserMysql.email, 0, newUserMysql.tipo_usuario],function(err,rows){
               if(err){
                 console.log("error en la query!: " + err);
-                return false;
+                return res.status(400).send("Error al crear un nuevo usuario, intenta más tarde");
               }
               else{
                 //return done(null);
-                  return true;
+                  return res.status(200).send("Usuario ingresado con exito");
               }
             });
         }

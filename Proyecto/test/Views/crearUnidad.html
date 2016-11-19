@@ -94,45 +94,59 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <h1>¡Hola Administrador!</h1>
-          <div class="col-sm-7 col-sm-offset-3">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crear Usuario
-              </button>
-              </a>
+          <div ng-show="unidadflag">
+          <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Listado de Cursos</h1>
+          <h1>{{mensaje}}</h1>
 
-              <a href="/modificarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Modificar  Usuario
-              </button>
-              </a>
+          <!--action="/panelAdmin" method="post" name ="formulario"-->
+          <div class="col-sm-6 col-sm-offset-3">
 
-              <a href="/eliminarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Eliminar Usuario
-              </button>
-              </a>
+                <div class="panel panel-default">
+                  <!-- Table -->
+                    <table class="table">
+
+                      <thead>
+                        <tr>
+                          <th> ID Curso </th>
+                          <th> Nombre Curso </th>
+                        </tr>
+                      </thead>
+
+                    <tbody>
+                      <div  class="col-sm-6 col-sm-offset-3">
+                        <tr ng-repeat="result in resultadosQuery">
+                          <th><h3>{{result.ID_curso}}</h3></th>
+                          <th><h3>{{result.Nombre_Curso}}</h3></th>
+                          <th><button class="btn btn-warning" ng-click="displayUnidad(result.ID_curso)">Agregar Unidad</button></th>
+                        </tr>
+                      </div>
+
+                    </tbody>
+
+                    </table>
+                </div>
             </div>
+          </div>
+          <div ng-hide="unidadflag">
+            <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Ingrese el nombre de la nueva unidad</h1>
+            <h1>{{mensaje}}</h1>
 
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
-              </button>
-              </a>
+            <!--action="/panelAdmin" method="post" name ="formulario"-->
+            <div class="col-sm-6 col-sm-offset-3">
 
-              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
-              </button>
-              </a>
+              <form>
 
-              <a href="/crearContenido" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
-              </button>
-              </a>
+                <div class="form-group">
+                  <label>Nombre nueva unidad</label>
+                  <input type="text" class="form-control" ng-model = "unidad.nombreUnidad" name = "nombreUnidad" required="required">
+                </div>
 
+                <button class="btn btn-warning btn-lg" ng-click="insertarUnidad()">Enviar</button>
+
+              </form>
             </div>
           </div>
         </div>
-
         <!--Contenido columna derecha-->
         <div class="col-sm-2 sidenav">
 
@@ -140,6 +154,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- contenido footer-->
 <footer class="container-fluid text-center">

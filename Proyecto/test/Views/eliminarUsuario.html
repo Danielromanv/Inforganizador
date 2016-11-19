@@ -94,45 +94,47 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <h1>¡Hola Administrador!</h1>
-          <div class="col-sm-7 col-sm-offset-3">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crear Usuario
-              </button>
-              </a>
+          <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Listado de Usuarios</h1>
+          <h1>{{mensaje}}</h1>
 
-              <a href="/modificarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Modificar  Usuario
-              </button>
-              </a>
+          <!--action="/panelAdmin" method="post" name ="formulario"-->
+          <div class="col-sm-6 col-sm-offset-3">
 
-              <a href="/eliminarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Eliminar Usuario
-              </button>
-              </a>
+                <div class="panel panel-default">
+                  <!-- Table -->
+                    <table class="table">
+
+                      <thead>
+                        <tr>
+                          <th> Usuario </th>
+                          <th> Nombre </th>
+                          <th> Apellido </th>
+                          <th> E-Mail</th>
+                          <th> Tipo aprendizaje </th>
+                          <th> Tipo Usuario </th>
+                          <th> Opción </th>
+                        </tr>
+                      </thead>
+
+                    <tbody>
+
+                        <tr ng-repeat="result in resultadosQueryUser">
+                          <th>{{result.Username}}</th>
+                          <th>{{result.Nombre}}</th>
+                          <th>{{result.Apellido}}</th>
+                          <th>{{result.Email}}</th>
+                          <th>{{result.Tipo_aprendizaje}}</th>
+                          <th>{{result.Tipo_usuario}}</th>
+                          <th><button class="btn btn-warning" ng-click="eliminarUser(result.Username)">Eliminar</button></th>
+                        </tr>
+
+
+                    </tbody>
+
+                    </table>
+                </div>
             </div>
-
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
-              </button>
-              </a>
-
-              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
-              </button>
-              </a>
-
-              <a href="/crearContenido" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
-              </button>
-              </a>
-
-            </div>
-          </div>
         </div>
-
         <!--Contenido columna derecha-->
         <div class="col-sm-2 sidenav">
 
@@ -140,6 +142,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- contenido footer-->
 <footer class="container-fluid text-center">

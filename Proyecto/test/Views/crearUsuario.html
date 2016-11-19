@@ -94,42 +94,56 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <h1>¡Hola Administrador!</h1>
-          <div class="col-sm-7 col-sm-offset-3">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crear Usuario
-              </button>
-              </a>
+          <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Ingrese los datos del nuevo usuario</h1>
+          <h1>{{mensaje}}</h1>
 
-              <a href="/modificarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Modificar  Usuario
-              </button>
-              </a>
+          <!--action="/panelAdmin" method="post" name ="formulario"-->
+          <div class="col-sm-6 col-sm-offset-3">
 
-              <a href="/eliminarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Eliminar Usuario
-              </button>
-              </a>
-            </div>
+            <form>
 
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
-              </button>
-              </a>
+              <div class="form-group">
+                <label>Nombre de Usuario</label>
+                <input type="text" class="form-control" ng-model = "usuario.usuario" name = "usuario" required="required">
+              </div>
 
-              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
-              </button>
-              </a>
+              <div class="form-group">
+                <label> Contraseña </label>
+                <input type="password" class="form-control" ng-model = "usuario.password" name = "password" required="required">
+              </div>
 
-              <a href="/crearContenido" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
-              </button>
-              </a>
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" ng-model = "usuario.nombre" name = "nombre" required="required">
+              </div>
 
-            </div>
+              <div class="form-group">
+                <label>Apellido</label>
+                <input type="text" class="form-control" ng-model = "usuario.apellido" name = "apellido" required="required">
+              </div>
+
+              <div class="form-group">
+                <label> E-mail </label>
+                <input type="text" class="form-control" ng-model = "usuario.email" name = "email" required="required">
+              </div>
+
+              <div class="form-group">
+                <label> Tipo de usuario </label>
+                <select class="form-control" ng-model = "usuario.tipo_usuario">
+                  <option value = "Alumno"> Alumno
+                  <option value = "Profesor"> Profesor
+                  <option value = "Administrador"> Administrador
+                </select>
+                <!--
+                <input type="number" class="form-control" ng-model = "usuario.tipo_usuario" name ="tipo_usuario" required="required">
+                -->
+              </div>
+
+              <button class="btn btn-warning btn-lg" ng-click="insertar()">Enviar</button>
+
+            </form>
+            <h1>{{usuario.nombre}}</h1>
+
           </div>
         </div>
 

@@ -79,6 +79,8 @@ app.post('/login', passport.authenticate('local-login',{
     failureFlash : true
 }));
 
+
+
 app.get('/signup', function (req,res) {
     res.sendfile(__dirname + '/Views/signup.html',{message: req.flash('signupMessage')});
 });
@@ -115,21 +117,84 @@ app.get('/panelAdmin', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
-app.post('/panelAdmin', function(req, res){
-  var usuarioCRUD = require('./app/models/usuario');
-
-  var newUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
-  var resultado = newUsuario.insert()
-  console.log(resultado);
-  if(resultado == false){
-    console.log("no la hice");
-    res.redirect('/panelAdmin');
-  }
-  else if(resultado == true){
-    console.log("LA HICE");
-    res.redirect('/encuesta');
-  }
+app.get('/crearUsuario', function(req, res){
+  res.sendfile(__dirname + '/Views/crearUsuario.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
 });
+
+
+app.post('/insertUser', function(req, res){
+  var usuarioCRUD = require('./app/models/usuario');
+  var newUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
+  newUsuario.insert(res);
+});
+
+app.get('/crearCurso', function(req, res){
+  res.sendfile(__dirname + '/Views/crearCurso.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.post('/insertCurso', function(req, res){
+  var cursoCRUD = require('./app/models/curso');
+  var newCurso = new cursoCRUD('nope', req.body.nombreCurso);
+  newCurso.insert(res);
+})
+
+app.get('/crearUnidad', function(req, res){
+  res.sendfile(__dirname + '/Views/crearUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.post('/insertUnidad', function(req, res){
+  var unidadCRUD = require('./app/models/unidad');
+  var newUnidad = new unidadCRUD(" ", req.body.idCurso, req.body.nombreUnidad);
+  newUnidad.insert(res);
+})
+
+app.get('/eliminarUsuario', function(req, res){
+  res.sendfile(__dirname + '/Views/eliminarUsuario.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.post('/deleteUser', function(req, res){
+  var usuarioCRUD = require('./app/models/usuario');
+  var newUsuario = new usuarioCRUD(req.body.usuario," ", " ", " ", " ", " ");
+  newUsuario.delete(res);
+});
+
+app.get('/obtenerCursos', function(req, res){
+  var Query = "SELECT * from inforganizador.curso;";
+  connection.query(Query, function(err, rows){
+    if(err){
+        console.log(err);
+        return res.status(400).send("Error al buscar los cursos");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.get('/obtenerUsuarios', function(req, res){
+  var Query = "SELECT Username, Nombre, Apellido, Email, Tipo_aprendizaje, Tipo_usuario FROM inforganizador.user";
+  connection.query(Query, function(err, rows){
+    if(err){
+      return res.status(400).send("Error al buscar los usuarios");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
 
 /**Función que verifica si se está loggeado, redirige a la main page, a no ser que sea un usuario de tipo alumno
  * que no ha respondido la encuesta, en ese caso redirecciona a la vista de encuesta c:**/
@@ -158,6 +223,37 @@ function isLoggedIn(req, res, next) {
     }
 
 };
+
+/**
+function isLoggedInProfiles(req, res, next) {
+    if (req.isAuthenticated()) {
+        var username = req.user;
+        connection.query("select * from inforganizador.user where Username ='" + username + "'", function (err, rows) {
+            if (err) {
+                console.log("Error, falló la consulta sql");
+            }
+            if (rows[0].Tipo_usuario == 0) {
+                if (rows[0].Tipo_aprendizaje == 0) {
+                    res.redirect('/encuesta');
+                }
+                else{
+                    return next();
+                }
+            }
+            else if (rows[0].Tipo_usuario == 1){
+              res.redirect('/panelAdmin');
+            }
+            else {
+                return next();
+            }
+        })
+    }
+    else{
+        res.redirect('/');
+    }
+
+};
+**/
 
 app.get('/logout', function(req, res) {
     req.logout();

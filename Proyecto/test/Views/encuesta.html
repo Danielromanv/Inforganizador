@@ -9,6 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-animate.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -59,7 +61,7 @@
 
     </style>
 </head>
-<body ng-app = "myApp">
+<body ng-app = "encuestaApp">
 <div class="page-header">
     <h1>Inforganizador <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
 </div>
@@ -106,26 +108,8 @@
             <b>2 --></b> Lo tercero que más se parece a ti.<br>
             <b>1 --></b> Lo que menos se parece a ti.<br>
             <hr>
-            <ul>
-            <form action="/encuesta" method="post" name="formulario">
-              <div ng-repeat="preg in preguntas" class="col-sm-6 col-sm-offset-3">
 
-
-                     <li>
-                     <h2>{{ preg.pregunta }}</h2>  <br>
-                     <h5>{{ preg.respuesta1 }} <input type="number" ng-model="preguntas[$index].resp.EC" min="1" max="4" required="required"></h5> <br>
-                     <h5>{{ preg.respuesta2 }} <input type="number" ng-model="preguntas[$index].resp.OR" min="1" max="4" required="required"></h5> <br>
-                     <h5>{{ preg.respuesta3 }} <input type="number" ng-model="preguntas[$index].resp.CA" min="1" max="4" required="required"></h5> <br>
-                     <h5>{{ preg.respuesta4 }} <input type="number" ng-model="preguntas[$index].resp.EA" min="1" max="4" required="required"></h5> <br>
-                     </li>
-
-
-                  <hr>
-              </div>
-                <button class = "btn btn-default" type="submit" ng-click="verificar()">Enviar!</button>
-                <input type="hidden" value = {{resultado}} name="result">
-                </form>
-            </ul>
+            <div ng-view></div>
         </div>
 
         <!--Contenido columna derecha-->

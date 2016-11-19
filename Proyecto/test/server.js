@@ -97,7 +97,7 @@ app.get('/encuesta', function (req,res) {
 app.post('/encuesta',function (req,res) {
     var username = req.user;
     var resultado = req.body.result;
-    connection.query("UPDATE inforganizador.user SET Tipo_aprendizaje = "+ resultado +" WHERE Username ='"+ username +"'",function (rows,err) {
+    connection.query("UPDATE inforganizador.user SET Tipo_aprendizaje = "+ resultado +" WHERE Username ='"+ username +"'",function (err,rows) {
         if(err){
             console.log("Error al asignar perfil de aprendizaje");
         }

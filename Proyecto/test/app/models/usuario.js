@@ -67,8 +67,19 @@ class usuarioCRUD{
     console.log("Función para realizar update de usuario");
   }
 
-  delete(){
-    console.log("Función para realizar un delete de usuario");
+  delete(res){
+    var deleteUserMysql = {
+      usuario: this.usuario
+    }
+    var deleteQuery = "DELETE FROM inforganizador.user WHERE Username = ?";
+    connection.query(deleteQuery,[deleteUserMysql.usuario],function(err, rows){
+      if(err){
+        return res.status(400).send("Usuario eliminado correctamente");
+      }
+      else{
+        return res.status(200).send("Usuario eliminado correctamente");
+      }
+    })
   }
 
   select(){

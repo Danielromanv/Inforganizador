@@ -1,7 +1,13 @@
 
 
 app.controller('panelAdmin',['$scope','$http',function($scope, $http){
+  $scope.unidadflag = true;
+  $scope.idcurso = '';
   $scope.resultadosQuery = {
+
+  }
+
+  $scope.resultadosQueryUser = {
 
   }
 
@@ -16,6 +22,10 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
 
   $scope.curso = {
     nombreCurso:''
+  }
+
+  $scope.unidad = {
+    nombreUnidad:''
   }
 
   $scope.mensaje = '';
@@ -53,6 +63,23 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     })
   }
 
+
+  $scope.eliminarUser = function(username){
+    var valores = {
+      usuario: username
+    }
+    $http({
+      method: 'POST',
+      url: '/deleteUser',
+      data: valores
+    }).then(function successCallback(response){
+      $scope.mensaje = response.data;
+      $scope.$apply();
+    }, function errorCallback(response){
+      $scope.mensaje = response.data;
+    })
+  }
+
   $scope.insertarCurso = function(){
     var valores = $scope.curso;
     /** Enviar petición al servidor **/
@@ -78,8 +105,41 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     })
   }
 
-  $scope.queryCursos();
+  $scope.queryUsuarios = function(){
+    $http({
+      method: 'GET',
+      url: '/obtenerUsuarios'
+    }).then(function successCallback(response){
+      $scope.resultadosQueryUser = response.data;
+    }, function errorCallback(response){
+      $scope.mensaje = response.data;
+    })
+  }
 
+  $scope.displayUnidad = function (idCurso) {
+    $scope.idcurso = idCurso;
+    $scope.unidadflag = false;
+  }
+
+  $scope.insertarUnidad = function(){
+      var valores = {
+        idCurso: $scope.idcurso,
+        nombreUnidad: $scope.unidad.nombreUnidad
+      }
+      $http({
+        method: 'POST',
+        url: '/insertUnidad',
+        data: valores
+      }).then(function successCallback(response, data){
+        $scope.mensaje = response.data;
+        $scope.unidadflag = true;
+      }, function errorCallback(response, data){
+        $scope.mensaje = response.data;
+      })
+  }
+
+  $scope.queryCursos();
+  $scope.queryUsuarios();
 }]);
 
 

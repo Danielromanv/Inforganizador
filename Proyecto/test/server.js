@@ -13,6 +13,8 @@ var morgan = require('morgan');
 var session = require('express-session');
 var mysql = require('mysql');
 var configDB = require('./config/database.js');
+var conexionDB = require("./config/database.js");
+
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -33,6 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // Login con sesión
 app.use(flash()); // use connect-flash for flash messages stored in session
 require('./config/passport')(passport);
+
 
 /**Rutas... a futuro tirarlas a un archivo routes.js**/
 
@@ -66,7 +69,6 @@ app.get('/demo', isLoggedIn, function (req, res) {
     app.use(express.static(__dirname + '/app'));
 });
 
-
 app.get('/login', function (req,res) {
     res.sendfile(__dirname + '/Views/login.html', {message: req.flash('loginMessage')});
 });
@@ -95,18 +97,39 @@ app.get('/encuesta', function (req,res) {
 app.post('/encuesta',function (req,res) {
     var username = req.user;
     var resultado = req.body.result;
-    connection.query("UPDATE inforganizador.user SET Tipo_aprendizaje = "+ resultado +" WHERE Username ='"+ username +"'",function (rows,err) {
+    connection.query("UPDATE inforganizador.user SET Tipo_aprendizaje = "+ resultado +" WHERE Username ='"+ username +"'",function (err,rows) {
         if(err){
             console.log("Error al asignar perfil de aprendizaje");
         }
+        else{
         res.redirect('/demo');
+        }
         })
     }
 );
 
+app.get('/panelAdmin', function(req, res){
+  res.sendfile(__dirname + '/Views/adminPanel.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
 
+app.post('/panelAdmin', function(req, res){
+  var usuarioCRUD = require('./app/models/usuario');
 
-
+  var newUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
+  var resultado = newUsuario.insert()
+  console.log(resultado);
+  if(resultado == false){
+    console.log("no la hice");
+    res.redirect('/panelAdmin');
+  }
+  else if(resultado == true){
+    console.log("LA HICE");
+    res.redirect('/encuesta');
+  }
+});
 
 /**Función que verifica si se está loggeado, redirige a la main page, a no ser que sea un usuario de tipo alumno
  * que no ha respondido la encuesta, en ese caso redirecciona a la vista de encuesta c:**/

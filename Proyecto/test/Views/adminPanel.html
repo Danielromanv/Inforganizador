@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-animate.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -61,7 +58,7 @@
 
     </style>
 </head>
-<body ng-app = "encuestaApp">
+<body ng-app = "myApp">
 <div class="page-header">
     <h1>Inforganizador <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
 </div>
@@ -94,22 +91,19 @@
         <!--Contenido columna Izquierda.-->
         <div class="col-sm-2 sidenav">
         </div>
+
         <!--Contenido principal-->
-        <div class="col-sm-8 text-left" ng-controller="encuestaController">
-            <h3>En la siguiente página se te pide que completes 12 frases. Cada frase puede terminarse de cuatro formas distintas<br>
-                Ordena la cuatro opciones de cada frase según pienses que se ajustan a tu manera de aprender algo nuevo, tal vez<br>
-                en tu trabajo. Trata de pensar en situaciones recientes en las que te enfrentaste con algo nuevo. Numera con un 4<br>
-                la terminación que mejor se ajuste a tu forma de aprender y con un 1 la que peor se ajuste. Asegurate de asignar<br>
-                un número a todas las terminaciones de cada una de las 12 frases.<br></h3>
-
-            <b>Recuerde</b><br>
-            <b>4 --></b> Lo que más se parece a ti.<br>
-            <b>3 --></b> Lo segundo que más se parece a ti.<br>
-            <b>2 --></b> Lo tercero que más se parece a ti.<br>
-            <b>1 --></b> Lo que menos se parece a ti.<br>
-            <hr>
-
-            <div ng-view></div>
+        <div class="col-sm-8 text-left" ng-controller = "panelAdmin">
+          <form action="/panelAdmin" method="post" name ="formulario">
+            <input type="text" ng-model = "usuario.username" name = "usuario" required="required">
+            <input type="password" ng-model = "usuario.password" name = "password" required="required">
+            <input type="text" ng-model = "usuario.nombre" name = "nombre" required="required">
+            <input type="text" ng-model = "usuario.apellido" name = "apellido" required="required">
+            <input type="text" ng-model = "usuario.email" name = "email" required="required">
+            <input type="number" ng-model = "usuario.tipo_usuario" name ="tipo_usuario" required="required">
+            <button class = "btn btn-default" ng-click="insertar()">Enviar</button>
+          </form>
+          <h1>{{usuario.nombre}}</h1>
         </div>
 
         <!--Contenido columna derecha-->
@@ -125,7 +119,7 @@
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
 <script src="app.js"></script>
-<script src="/controllers/encuestaController.js"></script>
+<script src="/controllers/panelAdmin.js"></script>
 </body>
 
 </html>

@@ -1,9 +1,110 @@
 /**
  * Created by Felipe on 11-09-2016.
  */
+app2.config(function($routeProvider) {
+  $routeProvider
+    .when('/', {
+      template: '\
+    <a href="#1" class = "btn btn-default" style= "margin-left:45%">Empezar</a>\
+',
+    }).when('/1',{
+      template: '<h2>{{ preguntas[0].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[0].respuesta1 }} <input type="number" ng-model="preguntas[0].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[0].respuesta2 }} <input type="number" ng-model="preguntas[0].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[0].respuesta3 }} <input type="number" ng-model="preguntas[0].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[0].respuesta4 }} <input type="number" ng-model="preguntas[0].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(1)">Siguiente</button>',
+    }).when('/2',{
+      template: '<h2>{{ preguntas[1].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[1].respuesta1 }} <input type="number" ng-model="preguntas[1].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[1].respuesta2 }} <input type="number" ng-model="preguntas[1].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[1].respuesta3 }} <input type="number" ng-model="preguntas[1].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[1].respuesta4 }} <input type="number" ng-model="preguntas[1].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(2)">Siguiente</button>',
+    }).when('/3',{
+      template: '<h2>{{ preguntas[2].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[2].respuesta1 }} <input type="number" ng-model="preguntas[2].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[2].respuesta2 }} <input type="number" ng-model="preguntas[2].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[2].respuesta3 }} <input type="number" ng-model="preguntas[2].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[2].respuesta4 }} <input type="number" ng-model="preguntas[2].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(3)">Siguiente</button>',
+    }).when('/4',{
+      template: '<h2>{{ preguntas[3].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[3].respuesta1 }} <input type="number" ng-model="preguntas[3].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[3].respuesta2 }} <input type="number" ng-model="preguntas[3].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[3].respuesta3 }} <input type="number" ng-model="preguntas[3].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[3].respuesta4 }} <input type="number" ng-model="preguntas[3].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(4)">Siguiente</button>',
+    }).when('/5',{
+      template: '<h2>{{ preguntas[4].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[4].respuesta1 }} <input type="number" ng-model="preguntas[4].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[4].respuesta2 }} <input type="number" ng-model="preguntas[4].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[4].respuesta3 }} <input type="number" ng-model="preguntas[4].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[4].respuesta4 }} <input type="number" ng-model="preguntas[4].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(5)">Siguiente</button>',
+    }).when('/6',{
+      template: '<h2>{{ preguntas[5].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[5].respuesta1 }} <input type="number" ng-model="preguntas[5].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[5].respuesta2 }} <input type="number" ng-model="preguntas[5].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[5].respuesta3 }} <input type="number" ng-model="preguntas[5].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[5].respuesta4 }} <input type="number" ng-model="preguntas[5].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(6)">Siguiente</button>',
+    }).when('/7',{
+      template: '<h2>{{ preguntas[6].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[6].respuesta1 }} <input type="number" ng-model="preguntas[6].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[6].respuesta2 }} <input type="number" ng-model="preguntas[6].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[6].respuesta3 }} <input type="number" ng-model="preguntas[6].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[6].respuesta4 }} <input type="number" ng-model="preguntas[6].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(7)">Siguiente</button>',
+    }).when('/8',{
+      template: '<h2>{{ preguntas[7].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[7].respuesta1 }} <input type="number" ng-model="preguntas[7].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[7].respuesta2 }} <input type="number" ng-model="preguntas[7].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[7].respuesta3 }} <input type="number" ng-model="preguntas[7].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[7].respuesta4 }} <input type="number" ng-model="preguntas[7].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(8)">Siguiente</button>',
+    }).when('/9',{
+      template: '<h2>{{ preguntas[8].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[8].respuesta1 }} <input type="number" ng-model="preguntas[8].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[8].respuesta2 }} <input type="number" ng-model="preguntas[8].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[8].respuesta3 }} <input type="number" ng-model="preguntas[8].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[8].respuesta4 }} <input type="number" ng-model="preguntas[8].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(9)">Siguiente</button>',
+    }).when('/10',{
+      template: '<h2>{{ preguntas[9].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[9].respuesta1 }} <input type="number" ng-model="preguntas[9].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[9].respuesta2 }} <input type="number" ng-model="preguntas[9].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[9].respuesta3 }} <input type="number" ng-model="preguntas[9].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[9].respuesta4 }} <input type="number" ng-model="preguntas[9].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(10)">Siguiente</button>',
+    }).when('/11',{
+      template: '<h2>{{ preguntas[10].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[10].respuesta1 }} <input type="number" ng-model="preguntas[10].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[10].respuesta2 }} <input type="number" ng-model="preguntas[10].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[10].respuesta3 }} <input type="number" ng-model="preguntas[10].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[10].respuesta4 }} <input type="number" ng-model="preguntas[10].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(11)">Siguiente</button>',
+    }).when('/12',{
+      template: '<h2>{{ preguntas[11].pregunta }}</h2>  <br>\
+               <h5>{{ preguntas[11].respuesta1 }} <input type="number" ng-model="preguntas[11].resp.EC" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[11].respuesta2 }} <input type="number" ng-model="preguntas[11].resp.OR" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[11].respuesta3 }} <input type="number" ng-model="preguntas[11].resp.CA" min="1" max="4" required="required"></h5> <br>\
+               <h5>{{ preguntas[11].respuesta4 }} <input type="number" ng-model="preguntas[11].resp.EA" min="1" max="4" required="required"></h5> <br>\
+               <button class = "btn btn-default" type="submit" ng-click="verificar(12)">Siguiente</button>',
+    }).when('/13',{
+      template: '<form action="/encuesta" method="post" name="formulario">\
+      <h4> Todo correcto<br>\
+      <button class = "btn btn-default" type="submit" ng-click="verificar(13)">Enviar!</button>\
+      <input type="hidden" value = {{resultado}} name="result">',
+    })
 
-app.controller('encuestaController', ['$scope',function($scope){
+});
+app2.controller('encuestaController', ['$scope','$location',function($scope,$location){
     $scope.resultado = 0;
+    $scope.EAc = 0;
+    $scope.ORc = 0;
+    $scope.CAc = 0;
+    $scope.ECc = 0;
     $scope.preguntas = [{
             pregunta:'Cuando aprendo...',
             respuesta1:'Me gusta vivir sensaciones',
@@ -161,73 +262,69 @@ app.controller('encuestaController', ['$scope',function($scope){
             }
         }
     ];
-    $scope.verificar = function () {
+    $scope.verificar = function (a) {
         var alert = "No repetir números por favor c:";
-        var ECcounter = 0;
-        var EAcounter = 0;
-        var ORcounter = 0;
-        var CAcounter = 0;
+        var alert2 = "Insertar números válidos (entre 1 y 4)";
         var preguntas = $scope.preguntas;
-        for(i= 0; i<$scope.preguntas.length;i++){
-            if(preguntas[i].resp.EA == preguntas[i].resp.EC){
-                window.alert(alert);
-                return false;
-            }
-            else if(preguntas[i].resp.EA == preguntas[i].resp.CA){
-                window.alert(alert);
-                return false;
-            }
-            else if(preguntas[i].resp.EA == preguntas[i].resp.OR){
-                window.alert(alert);
-                return false;
-            }
-            else if(preguntas[i].resp.EC == preguntas[i].resp.CA){
-                window.alert(alert);
-                return false;
-            }
-            else if(preguntas[i].resp.EC == preguntas[i].resp.OR){
-                window.alert(alert);
-                return false;
-            }
-            else if(preguntas[i].resp.CA == preguntas[i].resp.OR){
-                window.alert(alert);
-                return false;
-            }
-            else{
-                EAcounter += preguntas[i].resp.EA;
-                ORcounter += preguntas[i].resp.OR;
-                CAcounter += preguntas[i].resp.CA;
-                ECcounter += preguntas[i].resp.EC;
-
-
-            }
+        if(a == 13){
+          var CAc = $scope.CAc;
+          var ECc = $scope.ECc;
+          var EAc = $scope.EAc;
+          var ORc = $scope.ORc;
+          var first =  CAc - ECc;
+          var second = EAc - ORc;
+          console.log(CAc,ECc,EAc,ORc,first,second);
+          if(first <= 3 && second <= 5){
+              $scope.resultado = 1;
+              return true;
+          }
+          else if(first <= 3 && second >= 6){
+              $scope.resultado = 2;
+              return true;
+          }
+          else if(first > 3 && second >=6){
+              $scope.resultado = 3;
+              return true;
+          }
+          else if(first > 3 && second <= 5){
+              $scope.resultado = 4;
+              return true;
+          }
         }
-
-        window.alert("EA COUNTER = "+ EAcounter);
-        window.alert("OR COUNTER = "+ ORcounter);
-        window.alert("CA COUNTER = "+ CAcounter);
-        window.alert("EC COUNTER = "+ ECcounter);
-
-        var first = CAcounter - ECcounter;
-        var second = EAcounter - ORcounter;
-
-        window.alert("first = " + first);
-        window.alert("second = " + second);
-
-
-
-        if(first <= 3 && second <= 5){
-            $scope.resultado = 1;
+        if((typeof preguntas[a-1].resp.CA =='undefined')||(typeof preguntas[a-1].resp.EA =='undefined')||(typeof preguntas[a-1].resp.EC =='undefined')||(typeof preguntas[a-1].resp.OR =='undefined')){
+            window.alert(alert2);
+            return false;
         }
-        else if(first <= 3 && second >= 6){
-            $scope.resultado = 2;
+        else if(preguntas[a-1].resp.EA == preguntas[a-1].resp.EC){
+            window.alert(alert);
+            return false;
         }
-        else if(first > 3 && second >=6){
-            $scope.resultado = 3;
+        else if(preguntas[a-1].resp.EA == preguntas[a-1].resp.CA){
+            window.alert(alert);
+            return false;
         }
-        else if(first > 3 && second <= 5){
-            $scope.resultado = 4;
+        else if(preguntas[a-1].resp.EA == preguntas[a-1].resp.OR){
+            window.alert(alert);
+            return false;
         }
-        window.alert("Ya asigné el valor al scope c: "+ $scope.resultado);
+        else if(preguntas[a-1].resp.EC == preguntas[a-1].resp.CA){
+            window.alert(alert);
+            return false;
+        }
+        else if(preguntas[a-1].resp.EC == preguntas[a-1].resp.OR){
+            window.alert(alert);
+            return false;
+        }
+        else if(preguntas[a-1].resp.CA == preguntas[a-1].resp.OR){
+            window.alert(alert);
+            return false;
+        }
+      if (a <= 12){
+        $scope.EAc += preguntas[a-1].resp.EA;
+        $scope.ORc += preguntas[a-1].resp.OR;
+        $scope.CAc += preguntas[a-1].resp.CA;
+        $scope.ECc += preguntas[a-1].resp.EC;
+        $location.url('/'+(a+1));
+      }
     }
 }]);

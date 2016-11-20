@@ -46,9 +46,25 @@ class unidadCRUD{
    update(){
      console.log("función para realizar update en tabla unidad");
    }
-   delete(){
-     console.log("función para realizar delete en tabla unidad");
+
+   delete(res){
+     var deleteUnidadMysql = {
+       idUnidad: this.idUnidad,
+       cursoID: this.cursoID
+     }
+     console.log(deleteUnidadMysql);
+     var deleteQuery = "DELETE FROM inforganizador.unidad WHERE ID_unidad = ? AND CursoID_curso = ?";
+     connection.query(deleteQuery,[deleteUnidadMysql.idUnidad, deleteUnidadMysql.cursoID], function(err, rows){
+       if(err){
+         return res.status(400).send("Error al eliminar la unidad");
+       }
+       else{
+         console.log(rows);
+         return res.status(200).send("Unidad eliminada correctamente");
+       }
+     })
    }
+
    select(){
      console.log("función para realizar select en tabla unidad");
    }

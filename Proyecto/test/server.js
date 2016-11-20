@@ -111,6 +111,7 @@ app.post('/encuesta',function (req,res) {
 );
 
 app.get('/panelAdmin', function(req, res){
+  console.log(req.user);
   res.sendfile(__dirname + '/Views/adminPanel.html');
   app.use(express.static(__dirname + '/Views/css'));
   app.use(express.static(__dirname + '/app'));
@@ -171,10 +172,29 @@ app.get('/modificarUsuario', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
+app.get('/eliminarCursoUnidad', function(req, res){
+  res.sendfile(__dirname + '/Views/eliminarCursoUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
 app.post('/deleteUser', function(req, res){
   var usuarioCRUD = require('./app/models/usuario');
   var newUsuario = new usuarioCRUD(req.body.usuario," ", " ", " ", " ", " ");
   newUsuario.delete(res);
+});
+
+app.post('/deleteCurso', function(req, res){
+  var cursoCRUD = require('./app/models/curso');
+  var newCurso = new cursoCRUD(req.body.idCurso, " ");
+  newCurso.delete(res);
+});
+
+app.post('/deleteUnidad', function(req, res){
+  var unidadCRUD = require('./app/models/unidad');
+  var newUnidad = new unidadCRUD(req.body.idUnidad, req.body.idCurso," ");
+  newUnidad.delete(res);
 });
 
 app.get('/obtenerCursos', function(req, res){
@@ -183,6 +203,18 @@ app.get('/obtenerCursos', function(req, res){
     if(err){
         console.log(err);
         return res.status(400).send("Error al buscar los cursos");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/obtenerUnidad', function(req, res){
+  var Query = "SELECT * from inforganizador.unidad WHERE CursoID_curso = ?";
+  connection.query(Query,[req.body.idCurso], function(err, rows){
+    if(err){
+      res.status(400).send("Error al buscar las unidades");
     }
     else{
       return res.status(200).send(rows);

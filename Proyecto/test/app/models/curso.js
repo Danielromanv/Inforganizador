@@ -42,10 +42,23 @@ class cursoCRUD{
   }
 
   update(){
-    console.log("función para realizar update de curso");
-  }
-  delete(){
     console.log("función para realizar delete de curso");
+  }
+
+  delete(res){
+    var deleteCursoMysql = {
+      idCurso: this.idCurso
+    }
+    var deleteQuery = "DELETE FROM inforganizador.curso WHERE ID_curso = ?";
+    connection.query(deleteQuery,[deleteCursoMysql.idCurso], function(err, rows){
+      if(err){
+        console.log(err);
+        return res.status(400).send("Error al eliminar el curso");
+      }
+      else{
+        return res.status(200).send("Curso eliminado correctamente");
+      }
+    })
   }
   select(){
     console.log("función para realizar select de curso");

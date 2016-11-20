@@ -14,6 +14,10 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
 
   }
 
+  $scope.resultadosQueryUnidad = {
+
+  }
+
   $scope.usuario = {
     usuario:'',
     password:'',
@@ -155,6 +159,39 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     })
   }
 
+  $scope.eliminarCurso = function(idCurso){
+    var valores = {
+      idCurso: idCurso
+    }
+    $http({
+      method: 'POST',
+      url: '/deleteCurso',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.queryCursos();
+    }, function errorCallback(response){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.eliminarUnidad = function(idunidad){
+    var valores = {
+      idUnidad: idunidad,
+      idCurso: $scope.idcurso
+    }
+    $http({
+      method: 'POST',
+      url: '/deleteUnidad',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.unidadflag = true;
+    }, function errorCallback(response){
+      $scope.mensaje = response.data;
+    })
+  }
+
   $scope.queryCursos = function(){
     $http({
       method: 'GET',
@@ -179,7 +216,20 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
 
   $scope.displayUnidad = function (idCurso) {
     $scope.idcurso = idCurso;
-    $scope.unidadflag = false;
+    var valores = {
+      idCurso: idCurso
+    };
+    $http({
+      method: 'POST',
+      url: '/obtenerUnidad',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.resultadosQueryUnidad = response.data;
+      $scope.mensaje = "";
+      $scope.unidadflag = false;
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
   }
 
   $scope.insertarUnidad = function(){

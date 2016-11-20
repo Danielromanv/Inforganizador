@@ -91,7 +91,7 @@ class usuarioCRUD{
     var deleteQuery = "DELETE FROM inforganizador.user WHERE Username = ?";
     connection.query(deleteQuery,[deleteUserMysql.usuario],function(err, rows){
       if(err){
-        return res.status(400).send("Usuario eliminado correctamente");
+        return res.status(400).send("No se pudo eliminar el Usuario");
       }
       else{
         return res.status(200).send("Usuario eliminado correctamente");

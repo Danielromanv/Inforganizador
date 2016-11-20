@@ -61,10 +61,27 @@ class usuarioCRUD{
     //return false;
   }
 
-  update(){
-    //var selectQuery = "SELECT * FROM inforganizador.user WHERE Username = '"+ this.usuario +"'";
-    //var updateQuery = "UPDATE inforganizador.user SET Username ";
-    console.log("Función para realizar update de usuario");
+  update(res, exusername){
+    var updateQuery = "UPDATE inforganizador.user SET Username = ?, Nombre = ?, Apellido = ?, Email = ?, Tipo_usuario = ? WHERE Username = ?";
+    var updateUserMysql = {
+      usuario: this.usuario,
+      password: this.password,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      email: this.email,
+      tipo_usuario: this.tipo_usuario,
+      exuser: exusername
+    };
+    connection.query(updateQuery, [updateUserMysql.usuario, updateUserMysql.nombre, updateUserMysql.apellido, updateUserMysql.email, updateUserMysql.tipo_usuario, updateUserMysql.exuser], function(err, rows){
+      if(err){
+        console.log(err);
+        return res.status(400).send("Error al actualizar datos de usuario");
+      }
+      else{
+        console.log(rows);
+        return res.status(200).send("Datos de usuario actualizados con exito");
+      }
+    });
   }
 
   delete(res){

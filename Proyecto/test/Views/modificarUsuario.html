@@ -14,8 +14,10 @@
             margin-bottom: 0;
             border-radius: 0;
         }
+
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 450px}
+
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
@@ -31,6 +33,7 @@
             color: white;
             padding: 15px;
         }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -39,6 +42,7 @@
             }
             .row.content {height:auto;}
         }
+
         body{
             min-height: 100%;
             height: 100%;
@@ -51,6 +55,7 @@
         .sidenav{
           min-height: 100%;
         }
+
     </style>
 </head>
 <body ng-app = "myApp">
@@ -89,59 +94,88 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <div ng-show="unidadflag">
-          <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Listado de Cursos</h1>
-          <h1>{{mensaje}}</h1>
 
-          <!--action="/panelAdmin" method="post" name ="formulario"-->
-          <div class="col-sm-6 col-sm-offset-3">
-
-                <div class="panel panel-default">
-                  <!-- Table -->
-                    <table class="table">
-
-                      <thead>
-                        <tr>
-                          <th> ID Curso </th>
-                          <th> Nombre Curso </th>
-                        </tr>
-                      </thead>
-
-                    <tbody>
-                      <div  class="col-sm-6 col-sm-offset-3">
-                        <tr ng-repeat="result in resultadosQuery">
-                          <th><h3>{{result.ID_curso}}</h3></th>
-                          <th><h3>{{result.Nombre_Curso}}</h3></th>
-                          <th><button class="btn btn-warning" ng-click="displayUnidad(result.ID_curso)">Agregar Unidad</button></th>
-                        </tr>
-                      </div>
-
-                    </tbody>
-
-                    </table>
-                </div>
-                <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
-            </div>
-          </div>
-          <div ng-hide="unidadflag">
-            <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Ingrese el nombre de la nueva unidad</h1>
+            <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Listado de Usuarios</h1>
             <h1>{{mensaje}}</h1>
 
             <!--action="/panelAdmin" method="post" name ="formulario"-->
-            <div class="col-sm-6 col-sm-offset-3">
+            <div class="col-sm-6 col-sm-offset-2">
+              <div ng-show="usuarioflag">
+                  <div class="panel panel-default">
+                    <!-- Table -->
+                      <table class="table">
 
-              <form>
+                        <thead>
+                          <tr>
+                            <th> Usuario </th>
+                            <th> Nombre </th>
+                            <th> Apellido </th>
+                            <th> E-Mail</th>
+                            <th> Tipo aprendizaje </th>
+                            <th> Tipo Usuario </th>
+                            <th> Opción </th>
+                          </tr>
+                        </thead>
 
-                <div class="form-group">
-                  <label>Nombre nueva unidad</label>
-                  <input type="text" class="form-control" ng-model = "unidad.nombreUnidad" name = "nombreUnidad" required="required">
-                </div>
+                      <tbody>
 
-                <button class="btn btn-warning btn-lg" ng-click="insertarUnidad()">Enviar</button>
-                <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
-              </form>
+                          <tr ng-repeat="result in resultadosQueryUser">
+                            <th>{{result.Username}}</th>
+                            <th>{{result.Nombre}}</th>
+                            <th>{{result.Apellido}}</th>
+                            <th>{{result.Email}}</th>
+                            <th>{{result.Tipo_aprendizaje}}</th>
+                            <th>{{result.Tipo_usuario}}</th>
+                            <th><button class="btn btn-warning" ng-click="modificarUser(result.Username)">Modificar</button></th>
+                          </tr>
+
+
+                      </tbody>
+
+                      </table>
+                  </div>
+                  <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+              </div>
+
+              <div ng-hide="usuarioflag">
+                <form>
+                  <div class="form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" class="form-control" ng-model = "usuario.usuario" name = "usuario" required="required">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" ng-model = "usuario.nombre" name = "nombre" required="required">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" class="form-control" ng-model = "usuario.apellido" name = "apellido" required="required">
+                  </div>
+
+                  <div class="form-group">
+                    <label> E-mail </label>
+                    <input type="text" class="form-control" ng-model = "usuario.email" name = "email" required="required">
+                  </div>
+
+                  <div class="form-group">
+                    <label> Tipo de usuario </label>
+                    <select class="form-control" ng-model = "usuario.tipo_usuario">
+                      <option value = "Alumno"> Alumno
+                      <option value = "Profesor"> Profesor
+                      <option value = "Administrador"> Administrador
+                    </select>
+                    <!--
+                    <input type="number" class="form-control" ng-model = "usuario.tipo_usuario" name ="tipo_usuario" required="required">
+                    -->
+                  </div>
+
+                  <button class="btn btn-warning btn-lg" ng-click="envModificarUser()">Enviar</button>
+                  <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+                </form>
+              </div>
             </div>
-          </div>
         </div>
         <!--Contenido columna derecha-->
         <div class="col-sm-2 sidenav">

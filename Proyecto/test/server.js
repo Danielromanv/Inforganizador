@@ -164,6 +164,13 @@ app.get('/eliminarUsuario', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
+app.get('/modificarUsuario', function(req, res){
+  res.sendfile(__dirname + '/Views/modificarUsuario.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
 app.post('/deleteUser', function(req, res){
   var usuarioCRUD = require('./app/models/usuario');
   var newUsuario = new usuarioCRUD(req.body.usuario," ", " ", " ", " ", " ");
@@ -193,6 +200,27 @@ app.get('/obtenerUsuarios', function(req, res){
       return res.status(200).send(rows);
     }
   })
+});
+
+app.post('/obtenerUsuariosEsp', function(req, res){
+  var Query = "SELECT * FROM inforganizador.user WHERE Username = ?;";
+  connection.query(Query,[req.body.usuario], function(err, rows){
+    if(err){
+      console.log(err);
+      return res.status(400).send("Error al buscar el usuario");
+    }
+    else{
+      console.log(rows);
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/updateUsuarios', function(req, res){
+  console.log(req.body);
+  var usuarioCRUD = require('./app/models/usuario');
+  var updateUsuario = new usuarioCRUD(req.body.usuario, " ", req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
+  updateUsuario.update(res, req.body.exusuario);
 });
 
 

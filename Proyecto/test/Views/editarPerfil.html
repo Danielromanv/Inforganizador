@@ -96,7 +96,17 @@
         <div class="col-sm-8 text-center" ng-controller = "editarPerfil">
 
             <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Listado de Usuarios</h1>
-            <h1>{{mensaje}}</h1>
+
+          <div ng-show="flag">
+            <div class="alert alert-success">
+              <strong>{{mensaje}}</strong>
+            </div>
+          </div>
+          <div ng-show="flagError">
+            <div class="alert alert-danger">
+              <strong>{{error}}</strong>
+            </div>
+          </div>
 
             <!--action="/panelAdmin" method="post" name ="formulario"-->
             <div class="col-sm-6 col-sm-offset-2">

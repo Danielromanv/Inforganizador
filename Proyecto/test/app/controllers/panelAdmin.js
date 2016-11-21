@@ -2,8 +2,12 @@
 
 app.controller('panelAdmin',['$scope','$http',function($scope, $http){
   $scope.usuarioflag = true;
+  $scope.cursoflag = true;
   $scope.unidadflag = true;
+  $scope.unidadformflag = true;
+  $scope.cursoformflag = true;
   $scope.idcurso = '';
+  $scope.idunidad = '';
   $scope.userUsername = '';
   this.resultadosQueryUser2;
   $scope.resultadosQuery = {
@@ -226,11 +230,53 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     }).then(function successCallback(response, data){
       $scope.resultadosQueryUnidad = response.data;
       $scope.mensaje = "";
+      $scope.cursoflag = false;
       $scope.unidadflag = false;
     }, function errorCallback(response, data){
       $scope.mensaje = response.data;
     })
   }
+
+  $scope.displayCursoForm = function(idCurso){
+    $scope.idcurso = idCurso;
+    var valores = {
+      idCurso: idCurso
+    };
+    $http({
+      method: 'POST',
+      url: '/ObtenerCursoEsp',
+      data: valores
+    }).then(function successCallback(response, data){
+      var resultado = response.data;
+      $scope.curso.nombreCurso = response.data[0].Nombre_Curso;
+      $scope.cursoformflag = false;
+      $scope.cursoflag = false;
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.displayUnidadForm = function(idUnidad){
+    var valores = {
+      idCurso: $scope.idcurso,
+      idUnidad: idUnidad
+    };
+    $http({
+      method: 'POST',
+      url: '/ObtenerUnidadEsp',
+      data: valores
+    }).then(function successCallback(response, data){
+      var resultado = response.data;
+      $scope.unidad.nombreUnidad = response.data[0].nombreUnidad;
+      $scope.idunidad = response.data[0].ID_unidad;
+      $scope.unidadflag = true;
+      $scope.unidadformflag = false;
+
+    }), function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    }
+  }
+
 
   $scope.insertarUnidad = function(){
       var valores = {
@@ -248,6 +294,45 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
         $scope.mensaje = response.data;
       })
   }
+
+  $scope.modificarCurso = function(){
+    var valores = {
+      idCurso: $scope.idcurso,
+      nombreCurso: $scope.curso.nombreCurso
+    };
+    $http({
+      method: 'POST',
+      url: '/updateCurso',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.cursoformflag = true;
+      $scope.cursoflag = true;
+      $scope.queryCursos();
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.modificarUnidad = function(){
+    var valores = {
+      idCurso: $scope.idcurso,
+      idUnidad: $scope.idunidad,
+      nombreUnidad: $scope.unidad.nombreUnidad
+    };
+    $http({
+      method: 'POST',
+      url: '/updateUnidad',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.displayUnidad($scope.idcurso);
+      $scope.unidadformflag = true;
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
 
   $scope.queryCursos();
   $scope.queryUsuarios();

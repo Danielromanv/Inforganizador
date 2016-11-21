@@ -43,8 +43,23 @@ class unidadCRUD{
    }
 
 
-   update(){
-     console.log("función para realizar update en tabla unidad");
+   update(res){
+     var updateQuery = "UPDATE inforganizador.unidad SET nombreUnidad = ? WHERE ID_unidad = ? AND CursoID_curso = ?";
+     var updateUnidadMysql = {
+       nombreUnidad: this.nombreUnidad,
+       idUnidad: this.idUnidad,
+       cursoID: this.cursoID
+     };
+     console.log(updateUnidadMysql);
+     connection.query(updateQuery,[updateUnidadMysql.nombreUnidad, updateUnidadMysql.idUnidad, updateUnidadMysql.cursoID], function(err, rows){
+       if(err){
+         console.log(err);
+         return res.status(400).send("Error al actualizar los datos de la unidad");
+       }
+       else{
+         return res.status(200).send("Unidad Actualizada con exito");
+       }
+     })
    }
 
    delete(res){
@@ -59,7 +74,6 @@ class unidadCRUD{
          return res.status(400).send("Error al eliminar la unidad");
        }
        else{
-         console.log(rows);
          return res.status(200).send("Unidad eliminada correctamente");
        }
      })

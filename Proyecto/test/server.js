@@ -179,6 +179,15 @@ app.get('/eliminarCursoUnidad', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
+app.get('/modificarCursoUnidad', function(req, res){
+  res.sendfile(__dirname + '/Views/modificarCursoUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+
+
 app.post('/deleteUser', function(req, res){
   var usuarioCRUD = require('./app/models/usuario');
   var newUsuario = new usuarioCRUD(req.body.usuario," ", " ", " ", " ", " ");
@@ -248,11 +257,49 @@ app.post('/obtenerUsuariosEsp', function(req, res){
   })
 });
 
+app.post('/ObtenerCursoEsp', function(req, res){
+  var Query = "SELECT * FROM inforganizador.curso WHERE ID_curso = ?";
+  connection.query(Query,[req.body.idCurso], function(err, rows){
+    if(err){
+      console.log(err);
+      return res.status(400).send("Error al buscar el Curso");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/ObtenerUnidadEsp', function(req, res){
+  var Query = "SELECT * FROM inforganizador.unidad WHERE ID_unidad = ? AND CursoID_curso = ?";
+  connection.query(Query,[req.body.idUnidad, req.body.idCurso], function(err, rows){
+    if(err){
+      console.log(err);
+      return res.status(400).send("Error al buscar la unidad");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
 app.post('/updateUsuarios', function(req, res){
-  console.log(req.body);
   var usuarioCRUD = require('./app/models/usuario');
   var updateUsuario = new usuarioCRUD(req.body.usuario, " ", req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
   updateUsuario.update(res, req.body.exusuario);
+});
+
+app.post('/updateCurso', function(req, res){
+  var cursoCRUD = require('./app/models/curso');
+  var updateCurso = new cursoCRUD(req.body.idCurso, req.body.nombreCurso);
+  updateCurso.update(res);
+});
+
+app.post('/updateUnidad', function(req, res){
+  var unidadCRUD = require('./app/models/unidad');
+  console.log(req.body);
+  var updateUnidad = new unidadCRUD(req.body.idUnidad, req.body.idCurso, req.body.nombreUnidad);
+  updateUnidad.update(res);
 });
 
 

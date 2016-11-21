@@ -47,7 +47,7 @@ app.get('/app/controllers', function (req, res) {
     res.sendfile(__dirname + '/app/controllers');
 });
 
-app.get('/', function (req, res) {
+app.get('/', loggedHome, function (req, res) {
     res.sendfile(__dirname + '/Views/index.html');
 });
 
@@ -202,6 +202,13 @@ app.get('/errorPermisos', function(req, res){
 
 app.get('/panel', panelRedirect, function(req, res){
 
+});
+
+app.get('/panelAlumno', isAlumno, function(req, res){
+  res.sendfile(__dirname + '/Views/panelAlumno.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
 });
 
 /** MANEJO DE REQUEST PARA OPERACIONES EN LA BASE DE DATOS **/
@@ -452,12 +459,21 @@ function isAlumno(req, res, next) {
 
 function logged(req, res, next) {
     if (req.isAuthenticated()) {
-        res.next();
+        return next();
     }
     else{
         res.redirect('/login');
     }
 };
+
+function loggedHome(req, res, next){
+  if (req.isAuthenticated()){
+    res.redirect('/panel');
+  }
+  else{
+    return next();
+  }
+}
 
 function panelRedirect(req, res, next) {
     if (req.isAuthenticated()) {

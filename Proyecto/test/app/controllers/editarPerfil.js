@@ -41,6 +41,8 @@ app.controller('editarPerfil',['$scope', '$http', function($scope, $http){
       data: valores
     }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
+      //window.alert("Perfil editado, nesitamos que te loggees nuevamente c:");
+      //window.location.href = '/logout';
     }, function errorCallback(response, data){
       $scope.mensaje = response.data;
     })

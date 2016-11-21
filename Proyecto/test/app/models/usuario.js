@@ -84,6 +84,26 @@ class usuarioCRUD{
     });
   }
 
+ update2(res, exusername){
+   var updateQuery = "UPDATE inforganizador.user SET Username = ?, Password = ?, Nombre = ?, Apellido = ?, Email = ? WHERE Username = ?";
+   var updateUserMysql = {
+     usuario: this.usuario,
+     password: this.password,
+     nombre: this.nombre,
+     apellido: this.apellido,
+     email: this.email,
+     exuser: exusername
+   };
+   connection.query(updateQuery,[updateUserMysql.usuario, updateUserMysql.password, updateUserMysql.nombre, updateUserMysql.apellido, updateUserMysql.email, updateUserMysql.exuser], function(err, rows){
+     if(err){
+       return res.status(400).send("Error al actualizar tus datos de perfil");
+     }
+     else{
+       return res.status(200).send("Perfil editado correctamente");
+     }
+   });
+ }
+
   delete(res){
     var deleteUserMysql = {
       usuario: this.usuario

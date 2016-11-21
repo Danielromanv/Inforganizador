@@ -47,7 +47,7 @@ app.get('/app/controllers', function (req, res) {
     res.sendfile(__dirname + '/app/controllers');
 });
 
-app.get('/', function (req, res) {
+app.get('/', loggedHome, function (req, res) {
     res.sendfile(__dirname + '/Views/index.html');
 });
 
@@ -74,7 +74,7 @@ app.get('/login', function (req,res) {
 });
 
 app.post('/login', passport.authenticate('local-login',{
-    successRedirect: '/demo',
+    successRedirect: '/panel',
     failureRedirect: '/login',
     failureFlash : true
 }));
@@ -104,13 +104,13 @@ app.post('/encuesta',function (req,res) {
             console.log("Error al asignar perfil de aprendizaje");
         }
         else{
-        res.redirect('/demo');
+        res.redirect('/perfil');
         }
         })
     }
 );
 
-app.get('/panelAdmin', function(req, res){
+app.get('/panelAdmin', isAdmin, function(req, res){
   console.log(req.user);
   res.sendfile(__dirname + '/Views/adminPanel.html');
   app.use(express.static(__dirname + '/Views/css'));
@@ -118,12 +118,100 @@ app.get('/panelAdmin', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
-app.get('/crearUsuario', function(req, res){
+app.get('/panelProfesor', isAdminOrProfe, function(req, res){
+  res.sendfile(__dirname + '/Views/profesorPanel.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/crearContenido', isAdminOrProfe, function(req, res){
+  res.redirect('/demo');
+});
+
+
+app.get('/crearUsuario', isAdmin, function(req, res){
   res.sendfile(__dirname + '/Views/crearUsuario.html');
   app.use(express.static(__dirname + '/Views/css'));
   app.use(express.static(__dirname + '/app'));
   app.use(express.static(__dirname + '/config'));
 });
+
+app.get('/crearCurso', isAdminOrProfe,function(req, res){
+  res.sendfile(__dirname + '/Views/crearCurso.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/crearUnidad', isAdminOrProfe,function(req, res){
+  res.sendfile(__dirname + '/Views/crearUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/eliminarUsuario', isAdmin, function(req, res){
+  res.sendfile(__dirname + '/Views/eliminarUsuario.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/modificarUsuario', isAdmin, function(req, res){
+  res.sendfile(__dirname + '/Views/modificarUsuario.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/eliminarCursoUnidad', isAdmin, function(req, res){
+  res.sendfile(__dirname + '/Views/eliminarCursoUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/modificarCursoUnidad', isAdminOrProfe, function(req, res){
+  res.sendfile(__dirname + '/Views/modificarCursoUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/editarPerfil', logged, function(req, res){
+  res.sendfile(__dirname + '/Views/editarPerfil.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/verPerfil', logged, function(req, res){
+  res.sendfile(__dirname + '/Views/verPerfil.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/errorPermisos', function(req, res){
+  res.sendfile(__dirname + '/Views/errorPermisos.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/panel', panelRedirect, function(req, res){
+
+});
+
+app.get('/panelAlumno', isAlumno, function(req, res){
+  res.sendfile(__dirname + '/Views/panelAlumno.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+/** MANEJO DE REQUEST PARA OPERACIONES EN LA BASE DE DATOS **/
 
 
 app.post('/insertUser', function(req, res){
@@ -132,61 +220,17 @@ app.post('/insertUser', function(req, res){
   newUsuario.insert(res);
 });
 
-app.get('/crearCurso', function(req, res){
-  res.sendfile(__dirname + '/Views/crearCurso.html');
-  app.use(express.static(__dirname + '/Views/css'));
-  app.use(express.static(__dirname + '/app'));
-  app.use(express.static(__dirname + '/config'));
-});
-
 app.post('/insertCurso', function(req, res){
   var cursoCRUD = require('./app/models/curso');
   var newCurso = new cursoCRUD('nope', req.body.nombreCurso);
   newCurso.insert(res);
-})
-
-app.get('/crearUnidad', function(req, res){
-  res.sendfile(__dirname + '/Views/crearUnidad.html');
-  app.use(express.static(__dirname + '/Views/css'));
-  app.use(express.static(__dirname + '/app'));
-  app.use(express.static(__dirname + '/config'));
 });
 
 app.post('/insertUnidad', function(req, res){
   var unidadCRUD = require('./app/models/unidad');
   var newUnidad = new unidadCRUD(" ", req.body.idCurso, req.body.nombreUnidad);
   newUnidad.insert(res);
-})
-
-app.get('/eliminarUsuario', function(req, res){
-  res.sendfile(__dirname + '/Views/eliminarUsuario.html');
-  app.use(express.static(__dirname + '/Views/css'));
-  app.use(express.static(__dirname + '/app'));
-  app.use(express.static(__dirname + '/config'));
 });
-
-app.get('/modificarUsuario', function(req, res){
-  res.sendfile(__dirname + '/Views/modificarUsuario.html');
-  app.use(express.static(__dirname + '/Views/css'));
-  app.use(express.static(__dirname + '/app'));
-  app.use(express.static(__dirname + '/config'));
-});
-
-app.get('/eliminarCursoUnidad', function(req, res){
-  res.sendfile(__dirname + '/Views/eliminarCursoUnidad.html');
-  app.use(express.static(__dirname + '/Views/css'));
-  app.use(express.static(__dirname + '/app'));
-  app.use(express.static(__dirname + '/config'));
-});
-
-app.get('/modificarCursoUnidad', function(req, res){
-  res.sendfile(__dirname + '/Views/modificarCursoUnidad.html');
-  app.use(express.static(__dirname + '/Views/css'));
-  app.use(express.static(__dirname + '/app'));
-  app.use(express.static(__dirname + '/config'));
-});
-
-
 
 app.post('/deleteUser', function(req, res){
   var usuarioCRUD = require('./app/models/usuario');
@@ -257,6 +301,25 @@ app.post('/obtenerUsuariosEsp', function(req, res){
   })
 });
 
+app.get('/ObtenerUserLoggeado', function(req, res){
+  var username = req.user;
+  var Query = "SELECT * FROM inforganizador.user WHERE Username = ?";
+  connection.query(Query,[username], function(err, rows){
+    if(err){
+      return res.status(400).send("Error al obtener los datos de tu perfil");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/updatePerfil', function(req, res){
+  var usuarioCRUD = require('./app/models/usuario');
+  var updateUsuario = new usuarioCRUD(req.body.usuario, req.body.password, req.body.nombre, req.body.apellido, req.body.email, " ", " ");
+  updateUsuario.update2(res, req.body.exusuario);
+});
+
 app.post('/ObtenerCursoEsp', function(req, res){
   var Query = "SELECT * FROM inforganizador.curso WHERE ID_curso = ?";
   connection.query(Query,[req.body.idCurso], function(err, rows){
@@ -302,9 +365,12 @@ app.post('/updateUnidad', function(req, res){
   updateUnidad.update(res);
 });
 
+/** FUNCIONES DE PERMISOS DE USUARIO **/
+
 
 /**Función que verifica si se está loggeado, redirige a la main page, a no ser que sea un usuario de tipo alumno
  * que no ha respondido la encuesta, en ese caso redirecciona a la vista de encuesta c:**/
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         var username = req.user;
@@ -331,24 +397,15 @@ function isLoggedIn(req, res, next) {
 
 };
 
-/**
-function isLoggedInProfiles(req, res, next) {
+function isAdmin(req, res, next) {
     if (req.isAuthenticated()) {
         var username = req.user;
         connection.query("select * from inforganizador.user where Username ='" + username + "'", function (err, rows) {
             if (err) {
                 console.log("Error, falló la consulta sql");
             }
-            if (rows[0].Tipo_usuario == 0) {
-                if (rows[0].Tipo_aprendizaje == 0) {
-                    res.redirect('/encuesta');
-                }
-                else{
-                    return next();
-                }
-            }
-            else if (rows[0].Tipo_usuario == 1){
-              res.redirect('/panelAdmin');
+            if (rows[0].Tipo_usuario != 2) {
+                res.redirect('/errorPermisos');
             }
             else {
                 return next();
@@ -356,11 +413,92 @@ function isLoggedInProfiles(req, res, next) {
         })
     }
     else{
-        res.redirect('/');
+        res.redirect('/login');
     }
-
 };
-**/
+
+function isAdminOrProfe(req, res, next) {
+    if (req.isAuthenticated()) {
+        var username = req.user;
+        connection.query("select * from inforganizador.user where Username ='" + username + "'", function (err, rows) {
+            if (err) {
+                console.log("Error, falló la consulta sql");
+            }
+            if (rows[0].Tipo_usuario == 0) {
+                res.redirect('/errorPermisos');
+            }
+            else {
+                return next();
+            }
+        })
+    }
+    else{
+        res.redirect('/login');
+    }
+};
+
+function isAlumno(req, res, next) {
+    if (req.isAuthenticated()) {
+        var username = req.user;
+        connection.query("select * from inforganizador.user where Username ='" + username + "'", function (err, rows) {
+            if (err) {
+                console.log("Error, falló la consulta sql");
+            }
+            if (rows[0].Tipo_usuario != 0) {
+                res.redirect('/errorPermisos');
+            }
+            else {
+                return next();
+            }
+        })
+    }
+    else{
+        res.redirect('/login');
+    }
+};
+
+function logged(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    else{
+        res.redirect('/login');
+    }
+};
+
+function loggedHome(req, res, next){
+  if (req.isAuthenticated()){
+    res.redirect('/panel');
+  }
+  else{
+    return next();
+  }
+}
+
+function panelRedirect(req, res, next) {
+    if (req.isAuthenticated()) {
+        var username = req.user;
+        connection.query("select * from inforganizador.user where Username ='" + username + "'", function (err, rows) {
+            if (err) {
+                console.log("Error, falló la consulta sql");
+            }
+            if (rows[0].Tipo_usuario == 0) {
+                res.redirect('/panelAlumno');
+            }
+            if (rows[0].Tipo_usuario == 1){
+              res.redirect('/panelProfesor');
+            }
+            if (rows[0].Tipo_usuario == 2){
+              res.redirect('/panelAdmin');
+            }
+        })
+    }
+    else{
+        res.redirect('/login');
+    }
+};
+
+
 
 app.get('/logout', function(req, res) {
     req.logout();

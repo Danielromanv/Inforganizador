@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,40 +93,57 @@
         </div>
 
         <!--Contenido principal-->
-        <div class="col-sm-8 text-left">
-          <div class="container">
-          <style>
-              .jumbotron {
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-size: cover;
-                  background-color: transparent;
-              }
-              h1{
-                  color: Black;
-              }
+        <div class="col-sm-8 text-center" ng-controller = "editarPerfil">
 
-              body{
+            <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Listado de Usuarios</h1>
 
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-repeat: inherit;
-                  background-size: cover;
-                  min-height: 100%;
-              }
-
-          </style>
-
-              <div class="jumbotron text-center">
-                  <h1><font color = "black">INFORGANIZADOR</font></h1>
-                  <h5><font color = "black">Organizador de contenido según perfil de aprendizaje</font></h5>
-
-
-                  <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Ingresar</a>
-                  <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Registrarse</a>
-              </div>
-
+          <div ng-show="flag">
+            <div class="alert alert-success">
+              <strong>{{mensaje}}</strong>
+            </div>
           </div>
-        </div>
+          <div ng-show="flagError">
+            <div class="alert alert-danger">
+              <strong>{{error}}</strong>
+            </div>
+          </div>
 
+            <!--action="/panelAdmin" method="post" name ="formulario"-->
+            <div class="col-sm-6 col-sm-offset-2">
+
+                <form>
+                  <!--
+                  <div class="form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" class="form-control" ng-model = "usuario.usuario" name = "usuario" required="required">
+                  </div>
+                  -->
+                  <div class="form-group">
+                    <label>Password (En caso de mantener password no modificar este valor)</label>
+                    <input type="password" class="form-control" ng-model = "usuario.password" name = "password" required="required">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" ng-model = "usuario.nombre" name = "nombre" required="required">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" class="form-control" ng-model = "usuario.apellido" name = "apellido" required="required">
+                  </div>
+
+                  <div class="form-group">
+                    <label> E-mail </label>
+                    <input type="text" class="form-control" ng-model = "usuario.email" name = "email" required="required">
+                  </div>
+
+                  <button class="btn btn-warning btn-lg" ng-click="editarPerfil()">Enviar</button>
+                  <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+                </form>
+              </div>
+            </div>
+        </div>
         <!--Contenido columna derecha-->
         <div class="col-sm-2 sidenav">
 
@@ -136,12 +152,14 @@
     </div>
 </div>
 
+
+
 <!-- contenido footer-->
 <footer class="container-fluid text-center">
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
 <script src="app.js"></script>
->
+<script src="/controllers/editarPerfil.js"></script>
 </body>
 
 </html>

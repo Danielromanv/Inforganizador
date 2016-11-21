@@ -51,10 +51,10 @@ DROP TABLE IF EXISTS `curso`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `curso` (
-  `ID_curso` int(10) NOT NULL,
-  `Nombre Curso` varchar(64) NOT NULL,
+  `ID_curso` int(10) NOT NULL AUTO_INCREMENT,
+  `Nombre_Curso` varchar(64) NOT NULL,
   PRIMARY KEY (`ID_curso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +63,7 @@ CREATE TABLE `curso` (
 
 LOCK TABLES `curso` WRITE;
 /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
+INSERT INTO `curso` VALUES (1,'fisica 110'),(2,'FISICA 120');
 /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,12 +155,13 @@ DROP TABLE IF EXISTS `unidad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `unidad` (
-  `ID_unidad` int(10) NOT NULL,
+  `ID_unidad` int(10) NOT NULL AUTO_INCREMENT,
   `CursoID_curso` int(10) NOT NULL,
+  `nombreUnidad` varchar(64) NOT NULL,
   PRIMARY KEY (`ID_unidad`),
   KEY `unidad_curso_idx` (`CursoID_curso`),
-  CONSTRAINT `unidad_curso` FOREIGN KEY (`CursoID_curso`) REFERENCES `curso` (`ID_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `unidad_curso` FOREIGN KEY (`CursoID_curso`) REFERENCES `curso` (`ID_curso`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,6 +170,7 @@ CREATE TABLE `unidad` (
 
 LOCK TABLES `unidad` WRITE;
 /*!40000 ALTER TABLE `unidad` DISABLE KEYS */;
+INSERT INTO `unidad` VALUES (1,2,'Campo Eléctrico'),(2,1,'Leyes de Newton');
 /*!40000 ALTER TABLE `unidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +200,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('a','a','a','a','a',4,0),('chao','chao','chao','chao','chao',0,0),('goferk','goferk','Goferk','Youtube','goferk@goferk.com',0,0),('hola','hola','hola','hola','hola',3,0),('iuser','pasword','iuser','isure','iuser@iuser.com',0,0),('jaime','jaime','jaime','jaime','jaime',3,0),('jamon','jamon','jamon','jamon','jamon@jamon',4,0),('java','java','java','java','java@java.cl',0,0),('mansan','mansan','mansan','mansan','mansan',4,0),('Maurizios','mauro','Mau','','',0,1),('mauro','mauro','mauro','maur','mauro',0,0),('Pipexxgfx','mauro','Felipe','Vega','mauro@mauro.cl',0,1),('profe','profe','profe','profe','profe@profe',0,0),('testing','testing','testing','testing','testing',3,0),('vitokazo','vitokazo','vitokazo','vitokazo','vitokazo',0,0),('w','w','w','w','w',0,0),('yiyo','yiyo','yiyo','yiyo','yiyo@yiyo.com',0,0);
+INSERT INTO `user` VALUES ('admin','admin','ADMINISTRADOR','ADMINISTRADOR','admin@usm.cl',0,2),('alumno','alumno','alumno','alumno','alumno@usm.cl',1,0),('goferk','goferk','Goferk','Youtube','goferk@goferk.com',0,0),('hola','hola','hola','hola','hola',3,0),('iuser','pasword','iuser','isure','iuser@iuser.com',0,0),('jaime','jaime','jaime','jaime','jaime',3,0),('jamon','jamon','jamon','jamon','jamon@jamon',4,0),('java','java','java','java','java@java.cl',0,0),('mansan','mansan','mansan','mansan','mansan',4,0),('mauro','mauro','mauro','maur','mauro',0,0),('Pipexxgfx','mauro','Felipe','Vega','mauro@mauro.cl',0,1),('profesor','profe','profesor','profesor','profesor@usm.cl',0,1),('testing','testing','testing','testing','testing',3,0),('yiyo','yiyo','yiyo','yiyo','yiyo@yiyo.com',0,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,4 +273,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-10 23:16:25
+-- Dump completed on 2016-11-20 19:08:05

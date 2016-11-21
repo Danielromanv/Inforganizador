@@ -14,10 +14,8 @@
             margin-bottom: 0;
             border-radius: 0;
         }
-
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 450px}
-
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
@@ -33,7 +31,6 @@
             color: white;
             padding: 15px;
         }
-
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -42,7 +39,6 @@
             }
             .row.content {height:auto;}
         }
-
         body{
             min-height: 100%;
             height: 100%;
@@ -55,7 +51,6 @@
         .sidenav{
           min-height: 100%;
         }
-
     </style>
 </head>
 <body ng-app = "myApp">
@@ -94,58 +89,94 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <h1>¡Hola Administrador!</h1>
-          <div class="col-sm-7 col-sm-offset-3">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crear Usuario
-              </button>
-              </a>
-
-              <a href="/modificarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Modificar  Usuario
-              </button>
-              </a>
-
-              <a href="/eliminarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Eliminar Usuario
-              </button>
-              </a>
-            </div>
-
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
-              </button>
-              </a>
-
-              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
-              </button>
-              </a>
-
-              <a href="/crearContenido" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
-              </button>
-              </a>
-
-            </div>
-
-            <div class="btn-group btn-group-center" role="group" aria-label="...">
-              <a href="/eliminarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Eliminar Curso o Unidad
-              </button>
-              </a>
-
-              <a href="/modificarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Modificar Curso o Unidad
-              </button>
-              </a>
-              
+          <div ng-show="unidadflag">
+          <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Listado de Cursos</h1>
+          <div ng-show="flag">
+            <div class="alert alert-success">
+              <strong>{{mensaje}}</strong>
             </div>
           </div>
-        </div>
+          <div ng-show="flagError">
+            <div class="alert alert-danger">
+              <strong>{{error}}</strong>
+            </div>
+          </div>
 
+          <!--action="/panelAdmin" method="post" name ="formulario"-->
+          <div class="col-sm-6 col-sm-offset-3">
+
+                <div class="panel panel-default">
+                  <!-- Table -->
+                    <table class="table">
+
+                      <thead>
+                        <tr>
+                          <th> ID Curso </th>
+                          <th> Nombre Curso </th>
+                        </tr>
+                      </thead>
+
+                    <tbody>
+                      <div  class="col-sm-6 col-sm-offset-3">
+                        <tr ng-repeat="result in resultadosQuery">
+                          <th><h3>{{result.ID_curso}}</h3></th>
+                          <th><h3>{{result.Nombre_Curso}}</h3></th>
+                          <th><button class="btn btn-warning" ng-click="eliminarCurso(result.ID_curso)">Eliminar Curso</button></th>
+                          <th><button class="btn btn-warning" ng-click="displayUnidad(result.ID_curso)">Eliminar Unidades</button></th>
+                        </tr>
+                      </div>
+
+                    </tbody>
+
+                    </table>
+                </div>
+                <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+            </div>
+          </div>
+          <div ng-hide="unidadflag">
+            <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Listado de Unidades</h1>
+            <div ng-show="flag">
+              <div class="alert alert-success">
+                <strong>{{mensaje}}</strong>
+              </div>
+            </div>
+            <div ng-show="flagError">
+              <div class="alert alert-danger">
+                <strong>{{error}}</strong>
+              </div>
+            </div>
+
+            <!--action="/panelAdmin" method="post" name ="formulario"-->
+            <div class="col-sm-6 col-sm-offset-3">
+
+                  <div class="panel panel-default">
+                    <!-- Table -->
+                      <table class="table">
+
+                        <thead>
+                          <tr>
+                            <th> ID_unidad </th>
+                            <th> Nombre Unidad </th>
+                          </tr>
+                        </thead>
+
+                      <tbody>
+                        <div  class="col-sm-6 col-sm-offset-3">
+                          <tr ng-repeat="result in resultadosQueryUnidad">
+                            <th><h3>{{result.ID_unidad}}</h3></th>
+                            <th><h3>{{result.nombreUnidad}}</h3></th>
+                            <th><button class="btn btn-warning" ng-click="eliminarUnidad(result.ID_unidad)">Eliminar Unidad</button></th>
+                          </tr>
+                        </div>
+
+                      </tbody>
+
+                      </table>
+                  </div>
+                  <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+              </div>
+          </div>
+        </div>
         <!--Contenido columna derecha-->
         <div class="col-sm-2 sidenav">
 
@@ -153,6 +184,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- contenido footer-->
 <footer class="container-fluid text-center">

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,37 +93,47 @@
         </div>
 
         <!--Contenido principal-->
-        <div class="col-sm-8 text-left">
-          <div class="container">
-          <style>
-              .jumbotron {
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-size: cover;
-                  background-color: transparent;
-              }
-              h1{
-                  color: Black;
-              }
+        <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
+          <h1>¡Hola Profesor!</h1>
+          <div class="col-sm-7 col-sm-offset-3">
 
-              body{
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
+              </button>
+              </a>
 
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-repeat: inherit;
-                  background-size: cover;
-                  min-height: 100%;
-              }
+              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
+              </button>
+              </a>
 
-          </style>
+              <a href="/crearContenido" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
+              </button>
+              </a>
 
-              <div class="jumbotron text-center">
-                  <h1><font color = "black">INFORGANIZADOR</font></h1>
-                  <h5><font color = "black">Organizador de contenido según perfil de aprendizaje</font></h5>
+            </div>
+
+            <div class="btn-group btn-group-center" role="group" aria-label="...">
 
 
-                  <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Ingresar</a>
-                  <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Registrarse</a>
-              </div>
+              <a href="/modificarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Modificar Curso o Unidad
+              </button>
+              </a>
 
+              <a href="/editarPerfil" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Editar Perfil
+              </button>
+              </a>
+
+              <a href="/verPerfil" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Ver Perfil
+              </button>
+              </a>
+
+            </div>
           </div>
         </div>
 
@@ -141,7 +150,7 @@
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
 <script src="app.js"></script>
->
+<script src="/controllers/panelAdmin.js"></script>
 </body>
 
 </html>

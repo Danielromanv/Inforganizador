@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,40 +93,44 @@
         </div>
 
         <!--Contenido principal-->
-        <div class="col-sm-8 text-left">
-          <div class="container">
-          <style>
-              .jumbotron {
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-size: cover;
-                  background-color: transparent;
-              }
-              h1{
-                  color: Black;
-              }
+        <div class="col-sm-8 text-center" ng-controller = "editarPerfil">
+          <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Listado de Usuarios</h1>
+          <h1>{{mensaje}}</h1>
 
-              body{
+          <!--action="/panelAdmin" method="post" name ="formulario"-->
+          <div class="col-sm-6 col-sm-offset-3">
 
-                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
-                  background-repeat: inherit;
-                  background-size: cover;
-                  min-height: 100%;
-              }
+                <div class="panel panel-default">
+                  <!-- Table -->
+                    <table class="table">
 
-          </style>
+                      <thead>
+                        <tr>
+                          <th> Usuario </th>
+                          <th> Nombre </th>
+                          <th> Apellido </th>
+                          <th> E-Mail</th>
+                        </tr>
+                      </thead>
 
-              <div class="jumbotron text-center">
-                  <h1><font color = "black">INFORGANIZADOR</font></h1>
-                  <h5><font color = "black">Organizador de contenido según perfil de aprendizaje</font></h5>
+                    <tbody>
+
+                        <tr>
+                          <th>{{usuario.usuario}}</th>
+                          <th>{{usuario.nombre}}</th>
+                          <th>{{usuario.apellido}}</th>
+                          <th>{{usuario.email}}</th>
+                          <th>  <a href="/editarPerfil" button type="button" class="btn btn-warning" aria-label="Left Align"> Editar </a></th>
+                        </tr>
 
 
-                  <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Ingresar</a>
-                  <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Registrarse</a>
-              </div>
+                    </tbody>
 
-          </div>
+                    </table>
+                </div>
+                <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+            </div>
         </div>
-
         <!--Contenido columna derecha-->
         <div class="col-sm-2 sidenav">
 
@@ -136,12 +139,14 @@
     </div>
 </div>
 
+
+
 <!-- contenido footer-->
 <footer class="container-fluid text-center">
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
 <script src="app.js"></script>
->
+<script src="/controllers/editarPerfil.js"></script>
 </body>
 
 </html>

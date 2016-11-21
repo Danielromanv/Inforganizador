@@ -1,13 +1,24 @@
 
 
 app.controller('panelAdmin',['$scope','$http',function($scope, $http){
+  $scope.usuarioflag = true;
+  $scope.cursoflag = true;
   $scope.unidadflag = true;
+  $scope.unidadformflag = true;
+  $scope.cursoformflag = true;
   $scope.idcurso = '';
+  $scope.idunidad = '';
+  $scope.userUsername = '';
+  this.resultadosQueryUser2;
   $scope.resultadosQuery = {
 
   }
 
   $scope.resultadosQueryUser = {
+
+  }
+
+  $scope.resultadosQueryUnidad = {
 
   }
 
@@ -74,7 +85,65 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       data: valores
     }).then(function successCallback(response){
       $scope.mensaje = response.data;
-      $scope.$apply();
+      $scope.queryUsuarios();
+    }, function errorCallback(response){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.modificarUser = function(username){
+    var user = username;
+    var valores = {
+      usuario: user
+    };
+    $http({
+      method: 'POST',
+      url: '/obtenerUsuariosEsp',
+      data: valores
+    }).then(function successCallback(response, data){
+        resultadosQueryUser2 = response.data;
+        $scope.userUsername = response.data[0].Username;
+        $scope.usuario.usuario = response.data[0].Username;
+        $scope.usuario.nombre = response.data[0].Nombre;
+        $scope.usuario.apellido = response.data[0].Apellido;
+        $scope.usuario.email = response.data[0].Email;
+        $scope.usuario.tipo_usuario = response.data[0].Tipo_usuario;
+        $scope.usuarioflag = false;
+    }, function errorCallback(response, data){
+        $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.envModificarUser = function(){
+    if($scope.usuario.tipo_usuario ==="Alumno"){
+      $scope.usuario.tipo_usuario = 0;
+    }
+    else if($scope.usuario.tipo_usuario ==="Profesor"){
+      $scope.usuario.tipo_usuario = 1;
+    }
+    else if($scope.usuario.tipo_usuario ==="Administrador"){
+      $scope.usuario.tipo_usuario = 2;
+    }
+    else{
+      window.alert("Por favor, selecciona un tipo de usuario");
+      return false
+    }
+    var valores = {
+        usuario: $scope.usuario.usuario,
+        nombre:$scope.usuario.nombre,
+        apellido:$scope.usuario.apellido,
+        email:$scope.usuario.email,
+        tipo_usuario:$scope.usuario.tipo_usuario,
+        exusuario: $scope.userUsername
+      };
+    $http({
+      method: 'POST',
+      url: '/updateUsuarios',
+      data: valores
+    }).then(function successCallback(response, data){
+        $scope.mensaje = response.data;
+        $scope.usuarioflag = true;
+        $scope.queryUsuarios();
     }, function errorCallback(response){
       $scope.mensaje = response.data;
     })
@@ -90,6 +159,39 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
     }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.eliminarCurso = function(idCurso){
+    var valores = {
+      idCurso: idCurso
+    }
+    $http({
+      method: 'POST',
+      url: '/deleteCurso',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.queryCursos();
+    }, function errorCallback(response){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.eliminarUnidad = function(idunidad){
+    var valores = {
+      idUnidad: idunidad,
+      idCurso: $scope.idcurso
+    }
+    $http({
+      method: 'POST',
+      url: '/deleteUnidad',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.unidadflag = true;
+    }, function errorCallback(response){
       $scope.mensaje = response.data;
     })
   }
@@ -118,8 +220,63 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
 
   $scope.displayUnidad = function (idCurso) {
     $scope.idcurso = idCurso;
-    $scope.unidadflag = false;
+    var valores = {
+      idCurso: idCurso
+    };
+    $http({
+      method: 'POST',
+      url: '/obtenerUnidad',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.resultadosQueryUnidad = response.data;
+      $scope.mensaje = "";
+      $scope.cursoflag = false;
+      $scope.unidadflag = false;
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
   }
+
+  $scope.displayCursoForm = function(idCurso){
+    $scope.idcurso = idCurso;
+    var valores = {
+      idCurso: idCurso
+    };
+    $http({
+      method: 'POST',
+      url: '/ObtenerCursoEsp',
+      data: valores
+    }).then(function successCallback(response, data){
+      var resultado = response.data;
+      $scope.curso.nombreCurso = response.data[0].Nombre_Curso;
+      $scope.cursoformflag = false;
+      $scope.cursoflag = false;
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.displayUnidadForm = function(idUnidad){
+    var valores = {
+      idCurso: $scope.idcurso,
+      idUnidad: idUnidad
+    };
+    $http({
+      method: 'POST',
+      url: '/ObtenerUnidadEsp',
+      data: valores
+    }).then(function successCallback(response, data){
+      var resultado = response.data;
+      $scope.unidad.nombreUnidad = response.data[0].nombreUnidad;
+      $scope.idunidad = response.data[0].ID_unidad;
+      $scope.unidadflag = true;
+      $scope.unidadformflag = false;
+
+    }), function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    }
+  }
+
 
   $scope.insertarUnidad = function(){
       var valores = {
@@ -137,6 +294,45 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
         $scope.mensaje = response.data;
       })
   }
+
+  $scope.modificarCurso = function(){
+    var valores = {
+      idCurso: $scope.idcurso,
+      nombreCurso: $scope.curso.nombreCurso
+    };
+    $http({
+      method: 'POST',
+      url: '/updateCurso',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.cursoformflag = true;
+      $scope.cursoflag = true;
+      $scope.queryCursos();
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
+  $scope.modificarUnidad = function(){
+    var valores = {
+      idCurso: $scope.idcurso,
+      idUnidad: $scope.idunidad,
+      nombreUnidad: $scope.unidad.nombreUnidad
+    };
+    $http({
+      method: 'POST',
+      url: '/updateUnidad',
+      data: valores
+    }).then(function successCallback(response, data){
+      $scope.mensaje = response.data;
+      $scope.displayUnidad($scope.idcurso);
+      $scope.unidadformflag = true;
+    }, function errorCallback(response, data){
+      $scope.mensaje = response.data;
+    })
+  }
+
 
   $scope.queryCursos();
   $scope.queryUsuarios();

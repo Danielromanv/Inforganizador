@@ -89,7 +89,7 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <div ng-show="unidadflag">
+          <div ng-show="cursoflag">
           <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Listado de Cursos</h1>
           <h1>{{mensaje}}</h1>
 
@@ -112,7 +112,8 @@
                         <tr ng-repeat="result in resultadosQuery">
                           <th><h3>{{result.ID_curso}}</h3></th>
                           <th><h3>{{result.Nombre_Curso}}</h3></th>
-                          <th><button class="btn btn-warning" ng-click="displayUnidad(result.ID_curso)">Agregar Unidad</button></th>
+                          <th><button class="btn btn-warning" ng-click="displayCursoForm(result.ID_curso)">Modificar Curso</button></th>
+                          <th><button class="btn btn-warning" ng-click="displayUnidad(result.ID_curso)">Modificar Unidades</button></th>
                         </tr>
                       </div>
 
@@ -124,12 +125,59 @@
             </div>
           </div>
           <div ng-hide="unidadflag">
-            <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Ingrese el nombre de la nueva unidad</h1>
+            <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Listado de Unidades</h1>
             <h1>{{mensaje}}</h1>
 
             <!--action="/panelAdmin" method="post" name ="formulario"-->
             <div class="col-sm-6 col-sm-offset-3">
 
+                  <div class="panel panel-default">
+                    <!-- Table -->
+                      <table class="table">
+
+                        <thead>
+                          <tr>
+                            <th> ID_unidad </th>
+                            <th> Nombre Unidad </th>
+                          </tr>
+                        </thead>
+
+                      <tbody>
+                        <div  class="col-sm-6 col-sm-offset-3">
+                          <tr ng-repeat="result in resultadosQueryUnidad">
+                            <th><h3>{{result.ID_unidad}}</h3></th>
+                            <th><h3>{{result.nombreUnidad}}</h3></th>
+                            <th><button class="btn btn-warning" ng-click="displayUnidadForm(result.ID_unidad)">Modificar Unidad</button></th>
+                          </tr>
+                        </div>
+
+                      </tbody>
+
+                      </table>
+                  </div>
+                  <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+              </div>
+          </div>
+          <div ng-hide="cursoformflag">
+            <div class="col-sm-6 col-sm-offset-3">
+              <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Modificar Curso</h1>
+              <form>
+
+                <div class="form-group">
+                  <label>Nombre curso</label>
+                  <input type="text" class="form-control" ng-model = "curso.nombreCurso" name = "nombreCurso" required="required">
+                </div>
+
+                <button class="btn btn-warning btn-lg" ng-click="modificarCurso()">Enviar</button>
+                <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+
+              </form>
+            </div>
+          </div>
+
+          <div ng-hide="unidadformflag">
+            <div class="col-sm-6 col-sm-offset-3">
+              <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Modificar Unidad</h1>
               <form>
 
                 <div class="form-group">
@@ -137,7 +185,7 @@
                   <input type="text" class="form-control" ng-model = "unidad.nombreUnidad" name = "nombreUnidad" required="required">
                 </div>
 
-                <button class="btn btn-warning btn-lg" ng-click="insertarUnidad()">Enviar</button>
+                <button class="btn btn-warning btn-lg" ng-click="modificarUnidad()">Enviar</button>
                 <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
               </form>
             </div>

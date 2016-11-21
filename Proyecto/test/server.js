@@ -111,6 +111,7 @@ app.post('/encuesta',function (req,res) {
 );
 
 app.get('/panelAdmin', function(req, res){
+  console.log(req.user);
   res.sendfile(__dirname + '/Views/adminPanel.html');
   app.use(express.static(__dirname + '/Views/css'));
   app.use(express.static(__dirname + '/app'));
@@ -164,10 +165,45 @@ app.get('/eliminarUsuario', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
+app.get('/modificarUsuario', function(req, res){
+  res.sendfile(__dirname + '/Views/modificarUsuario.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/eliminarCursoUnidad', function(req, res){
+  res.sendfile(__dirname + '/Views/eliminarCursoUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+app.get('/modificarCursoUnidad', function(req, res){
+  res.sendfile(__dirname + '/Views/modificarCursoUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
+
+
 app.post('/deleteUser', function(req, res){
   var usuarioCRUD = require('./app/models/usuario');
   var newUsuario = new usuarioCRUD(req.body.usuario," ", " ", " ", " ", " ");
   newUsuario.delete(res);
+});
+
+app.post('/deleteCurso', function(req, res){
+  var cursoCRUD = require('./app/models/curso');
+  var newCurso = new cursoCRUD(req.body.idCurso, " ");
+  newCurso.delete(res);
+});
+
+app.post('/deleteUnidad', function(req, res){
+  var unidadCRUD = require('./app/models/unidad');
+  var newUnidad = new unidadCRUD(req.body.idUnidad, req.body.idCurso," ");
+  newUnidad.delete(res);
 });
 
 app.get('/obtenerCursos', function(req, res){
@@ -176,6 +212,18 @@ app.get('/obtenerCursos', function(req, res){
     if(err){
         console.log(err);
         return res.status(400).send("Error al buscar los cursos");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/obtenerUnidad', function(req, res){
+  var Query = "SELECT * from inforganizador.unidad WHERE CursoID_curso = ?";
+  connection.query(Query,[req.body.idCurso], function(err, rows){
+    if(err){
+      res.status(400).send("Error al buscar las unidades");
     }
     else{
       return res.status(200).send(rows);
@@ -193,6 +241,65 @@ app.get('/obtenerUsuarios', function(req, res){
       return res.status(200).send(rows);
     }
   })
+});
+
+app.post('/obtenerUsuariosEsp', function(req, res){
+  var Query = "SELECT * FROM inforganizador.user WHERE Username = ?;";
+  connection.query(Query,[req.body.usuario], function(err, rows){
+    if(err){
+      console.log(err);
+      return res.status(400).send("Error al buscar el usuario");
+    }
+    else{
+      console.log(rows);
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/ObtenerCursoEsp', function(req, res){
+  var Query = "SELECT * FROM inforganizador.curso WHERE ID_curso = ?";
+  connection.query(Query,[req.body.idCurso], function(err, rows){
+    if(err){
+      console.log(err);
+      return res.status(400).send("Error al buscar el Curso");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/ObtenerUnidadEsp', function(req, res){
+  var Query = "SELECT * FROM inforganizador.unidad WHERE ID_unidad = ? AND CursoID_curso = ?";
+  connection.query(Query,[req.body.idUnidad, req.body.idCurso], function(err, rows){
+    if(err){
+      console.log(err);
+      return res.status(400).send("Error al buscar la unidad");
+    }
+    else{
+      return res.status(200).send(rows);
+    }
+  })
+});
+
+app.post('/updateUsuarios', function(req, res){
+  var usuarioCRUD = require('./app/models/usuario');
+  var updateUsuario = new usuarioCRUD(req.body.usuario, " ", req.body.nombre, req.body.apellido, req.body.email, req.body.tipo_usuario);
+  updateUsuario.update(res, req.body.exusuario);
+});
+
+app.post('/updateCurso', function(req, res){
+  var cursoCRUD = require('./app/models/curso');
+  var updateCurso = new cursoCRUD(req.body.idCurso, req.body.nombreCurso);
+  updateCurso.update(res);
+});
+
+app.post('/updateUnidad', function(req, res){
+  var unidadCRUD = require('./app/models/unidad');
+  console.log(req.body);
+  var updateUnidad = new unidadCRUD(req.body.idUnidad, req.body.idCurso, req.body.nombreUnidad);
+  updateUnidad.update(res);
 });
 
 

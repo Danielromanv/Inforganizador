@@ -34,6 +34,10 @@ app.controller('editarPerfil',['$scope', '$http', function($scope, $http){
       window.alert("Ingresa un email válido");
       return false;
     }
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
     var valores = $scope.usuario;
     $http({
       method: 'POST',

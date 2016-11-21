@@ -60,6 +60,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       window.alert("Por favor, selecciona un tipo de usuario");
       return false
     }
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     var valores = $scope.usuario;
     /** Enviar Petición al servidor **/
 
@@ -79,6 +85,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     var valores = {
       usuario: username
     }
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     $http({
       method: 'POST',
       url: '/deleteUser',
@@ -128,6 +140,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       window.alert("Por favor, selecciona un tipo de usuario");
       return false
     }
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     var valores = {
         usuario: $scope.usuario.usuario,
         nombre:$scope.usuario.nombre,
@@ -152,6 +170,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
   $scope.insertarCurso = function(){
     var valores = $scope.curso;
     /** Enviar petición al servidor **/
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     $http({
       method: 'POST',
       url: '/insertCurso',
@@ -167,6 +191,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     var valores = {
       idCurso: idCurso
     }
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     $http({
       method: 'POST',
       url: '/deleteCurso',
@@ -184,6 +214,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       idUnidad: idunidad,
       idCurso: $scope.idcurso
     }
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     $http({
       method: 'POST',
       url: '/deleteUnidad',
@@ -283,6 +319,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
         idCurso: $scope.idcurso,
         nombreUnidad: $scope.unidad.nombreUnidad
       }
+
+      var confirmacion = window.confirm("¿Estas Seguro?");
+      if(confirmacion == false){
+        return false;
+      }
+
       $http({
         method: 'POST',
         url: '/insertUnidad',
@@ -300,6 +342,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       idCurso: $scope.idcurso,
       nombreCurso: $scope.curso.nombreCurso
     };
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     $http({
       method: 'POST',
       url: '/updateCurso',
@@ -320,6 +368,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       idUnidad: $scope.idunidad,
       nombreUnidad: $scope.unidad.nombreUnidad
     };
+
+    var confirmacion = window.confirm("¿Estas Seguro?");
+    if(confirmacion == false){
+      return false;
+    }
+
     $http({
       method: 'POST',
       url: '/updateUnidad',

@@ -11,6 +11,14 @@ app.controller('editarPerfil',['$scope', '$http', function($scope, $http){
   $scope.exusuario = " ";
 
   $scope.mensaje = " ";
+  $scope.error = " ";
+
+  $scope.flag = false;
+  $scope.flagError = false;
+
+
+
+
 
   $scope.ObtenerUserLoggeado = function(){
     $http({
@@ -24,7 +32,9 @@ app.controller('editarPerfil',['$scope', '$http', function($scope, $http){
       $scope.usuario.email = response.data[0].Email;
       $scope.usuario.exusuario = response.data[0].Username;
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   };
 
@@ -45,10 +55,14 @@ app.controller('editarPerfil',['$scope', '$http', function($scope, $http){
       data: valores
     }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
+      $scope.flag = true;
+      $scope.flagError = false;
       //window.alert("Perfil editado, nesitamos que te loggees nuevamente c:");
       //window.location.href = '/logout';
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false
     })
   };
 

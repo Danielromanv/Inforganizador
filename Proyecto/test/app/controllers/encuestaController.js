@@ -273,7 +273,6 @@ app2.controller('encuestaController', ['$scope','$location',function($scope,$loc
           var ORc = $scope.ORc;
           var first =  CAc - ECc;
           var second = EAc - ORc;
-          console.log(CAc,ECc,EAc,ORc,first,second);
           if(first <= 3 && second <= 5){
               $scope.resultado = 1;
               return true;

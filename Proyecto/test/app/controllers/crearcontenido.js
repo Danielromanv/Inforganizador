@@ -1,14 +1,12 @@
 // http://packery.metafizzy.co/packery.pkgd.js added as external resource
 // jQuery & jQuery UI included
 
-
-$( function() {
+$(function() {
   var $container = $('.packery');
   $container.packery({
     columnWidth: 10,
     rowHeight: 15
   });
-
   // bind draggabilly events to item elements
   $container.find('.bloque').each( makeEachDraggable );
 

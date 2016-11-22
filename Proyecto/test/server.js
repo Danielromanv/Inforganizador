@@ -51,6 +51,14 @@ app.get('/', loggedHome, function (req, res) {
     res.sendfile(__dirname + '/Views/index.html');
 });
 
+app.get('/about', function (req, res) {
+    res.sendfile(__dirname + '/Views/about.html');
+});
+
+app.get('/contact', function (req, res) {
+    res.sendfile(__dirname + '/Views/contacto.html');
+});
+
 app.get('/font-awesome.min.css', function (req, res) {
     res.sendfile(__dirname + '/Views/font-awesome.min.css');
 });
@@ -61,6 +69,14 @@ app.get('/bootstrap.min.css',function (req, res) {
 
 app.get('/MainController.js',function (req, res) {
     res.sendfile(__dirname + '/app/controllers/MainController.js');
+});
+
+app.get('/contact.js',function (req, res) {
+    res.sendfile(__dirname + '/app/controllers/contact.js');
+});
+
+app.get('/panelAdmin.js',function (req, res) {
+    res.sendfile(__dirname + '/app/controllers/panelAdmin.js');
 });
 
 app.get('/demo', isLoggedIn, function (req, res) {
@@ -504,7 +520,6 @@ app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
-
 
 
 app.listen(9000);

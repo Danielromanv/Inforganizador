@@ -75,6 +75,10 @@ app.get('/contact.js',function (req, res) {
     res.sendfile(__dirname + '/app/controllers/contact.js');
 });
 
+app.get('/panelAdmin.js',function (req, res) {
+    res.sendfile(__dirname + '/app/controllers/panelAdmin.js');
+});
+
 app.get('/demo', isLoggedIn, function (req, res) {
     res.sendfile(__dirname + '/Views/demo.html');
     app.use(express.static(__dirname + '/Views/css'));

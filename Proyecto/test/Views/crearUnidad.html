@@ -15,12 +15,16 @@
             border-radius: 0;
         }
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 450px}
+        .row.content {height: 720px}
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
             background-color: #f1f1f1;
             height: 100%;
+        }
+        .page-header{
+          text-align: center;
+          background-color: white;
         }
         .container-fluid text-center{
             min-height:100%;
@@ -44,6 +48,7 @@
             height: 100%;
             margin: 0 auto;
             padding: 0 auto;
+
         }
         .row.content{
           min-height: 100%;
@@ -51,11 +56,17 @@
         .sidenav{
           min-height: 100%;
         }
+        .row-eq-height {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display:         flex;
+        }
     </style>
 </head>
 <body ng-app = "myApp">
 <div class="page-header">
-    <h1>Inforganizador <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
+    <h1>INFORGANIZADOR <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -107,7 +118,7 @@
 
                 <div class="panel panel-default">
                   <!-- Table -->
-                    <table class="table">
+                    <table class="table" style="table-layout:fixed">
 
                       <thead>
                         <tr>

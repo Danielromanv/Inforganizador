@@ -15,8 +15,12 @@
             border-radius: 0;
         }
 
+        .page-header{
+          text-align: center;
+        }
+
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 450px}
+        .row.content {height: 720px}
 
         /* Set gray background color and 100% height */
         .sidenav {
@@ -60,7 +64,7 @@
 </head>
 <body ng-app = "myApp">
 <div class="page-header">
-    <h1>Inforganizador <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
+    <h1>INFORGANIZADOR <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -108,11 +112,11 @@
             </div>
 
             <!--action="/panelAdmin" method="post" name ="formulario"-->
-            <div class="col-sm-6 col-sm-offset-2">
+            <div class="col-sm-9 col-sm-offset-2">
               <div ng-show="usuarioflag">
                   <div class="panel panel-default">
                     <!-- Table -->
-                      <table class="table">
+                      <table class="table" style="table-layout:fixed">
 
                         <thead>
                           <tr>
@@ -120,7 +124,6 @@
                             <th> Nombre </th>
                             <th> Apellido </th>
                             <th> E-Mail</th>
-                            <th> Tipo aprendizaje </th>
                             <th> Tipo Usuario </th>
                             <th> Opción </th>
                           </tr>
@@ -133,7 +136,6 @@
                             <th>{{result.Nombre}}</th>
                             <th>{{result.Apellido}}</th>
                             <th>{{result.Email}}</th>
-                            <th>{{result.Tipo_aprendizaje}}</th>
                             <th>{{result.Tipo_usuario}}</th>
                             <th><button class="btn btn-warning" ng-click="modificarUser(result.Username)">Modificar</button></th>
                           </tr>

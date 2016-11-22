@@ -16,7 +16,7 @@
         }
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 450px}
+        .row.content {height: 720px}
 
         /* Set gray background color and 100% height */
         .sidenav {
@@ -56,11 +56,23 @@
           min-height: 100%;
         }
 
+        .page-header{
+          text-align: center;
+        }
+
+        .row-eq-height {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display:         flex;
+        }
     </style>
 </head>
 <body ng-app = "myApp">
-<div class="page-header">
-    <h1>Inforganizador <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
+<div class="container">
+  <div class="page-header">
+      <h1>INFORGANIZADOR <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
+  </div>
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -87,7 +99,7 @@
 </nav>
 
 <div class="container-fluid text-center">
-    <div class="row content">
+    <div class="row content row-eq-height">
         <!--Contenido columna Izquierda.-->
         <div class="col-sm-2 sidenav">
         </div>
@@ -108,19 +120,18 @@
           </div>
 
           <!--action="/panelAdmin" method="post" name ="formulario"-->
-          <div class="col-sm-6 col-sm-offset-3">
+
+          <div class="col-sm-9 col-sm-offset-2">
 
                 <div class="panel panel-default">
                   <!-- Table -->
-                    <table class="table">
+                    <table class="table" style="table-layout:fixed">
 
-                      <thead>
+                      <thead style="display:table-header-group">
                         <tr>
                           <th> Usuario </th>
                           <th> Nombre </th>
                           <th> Apellido </th>
-                          <th> E-Mail</th>
-                          <th> Tipo aprendizaje </th>
                           <th> Tipo Usuario </th>
                           <th> Opción </th>
                         </tr>
@@ -132,8 +143,6 @@
                           <th>{{result.Username}}</th>
                           <th>{{result.Nombre}}</th>
                           <th>{{result.Apellido}}</th>
-                          <th>{{result.Email}}</th>
-                          <th>{{result.Tipo_aprendizaje}}</th>
                           <th>{{result.Tipo_usuario}}</th>
                           <th><button class="btn btn-warning" ng-click="eliminarUser(result.Username)">Eliminar</button></th>
                         </tr>

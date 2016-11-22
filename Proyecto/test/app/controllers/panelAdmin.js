@@ -40,6 +40,9 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
   }
 
   $scope.mensaje = '';
+  $scope.error = " ";
+  $scope.flag = false;
+  $scope.flagError = false;
 
   $scope.insertar = function (){
     var email = new RegExp(/[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@(sansano.usm.cl|usm.cl|alumnos.usm.cl)/);
@@ -75,8 +78,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       data: valores
     }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
+      $scope.flag = true;
+      $scope.flagError = false;
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -97,9 +104,13 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       data: valores
     }).then(function successCallback(response){
       $scope.mensaje = response.data;
+      $scope.flag = true;
+      $scope.flagError = false;
       $scope.queryUsuarios();
     }, function errorCallback(response){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -122,7 +133,9 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
         $scope.usuario.tipo_usuario = response.data[0].Tipo_usuario;
         $scope.usuarioflag = false;
     }, function errorCallback(response, data){
-        $scope.mensaje = response.data;
+        $scope.error = response.data;
+        $scope.flagError = true;
+        $scope.flag = false;
     })
   }
 
@@ -161,9 +174,13 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     }).then(function successCallback(response, data){
         $scope.mensaje = response.data;
         $scope.usuarioflag = true;
+        $scope.flag = true;
+        $scope.flagError = false;
         $scope.queryUsuarios();
     }, function errorCallback(response){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -182,8 +199,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       data: valores
     }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
+      $scope.flag = true;
+      $scope.flagError = false;
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -203,9 +224,13 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       data: valores
     }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
+      $scope.flag = true;
+      $scope.flagError = false;
       $scope.queryCursos();
     }, function errorCallback(response){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -227,8 +252,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     }).then(function successCallback(response, data){
       $scope.mensaje = response.data;
       $scope.unidadflag = true;
+      $scope.flag = true;
+      $scope.flagError = false;
     }, function errorCallback(response){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -239,7 +268,9 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     }).then(function successCallback(response){
       $scope.resultadosQuery = response.data;
     }, function errorCallback(response){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -250,7 +281,9 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
     }).then(function successCallback(response){
       $scope.resultadosQueryUser = response.data;
     }, function errorCallback(response){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -269,7 +302,9 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       $scope.cursoflag = false;
       $scope.unidadflag = false;
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -288,7 +323,9 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       $scope.cursoformflag = false;
       $scope.cursoflag = false;
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -308,8 +345,11 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       $scope.unidadflag = true;
       $scope.unidadformflag = false;
 
+
     }), function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     }
   }
 
@@ -332,8 +372,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       }).then(function successCallback(response, data){
         $scope.mensaje = response.data;
         $scope.unidadflag = true;
+        $scope.flag = true;
+        $scope.flagError = false;
       }, function errorCallback(response, data){
-        $scope.mensaje = response.data;
+        $scope.error = response.data;
+        $scope.flagError = true;
+        $scope.flag = false;
       })
   }
 
@@ -356,9 +400,13 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       $scope.mensaje = response.data;
       $scope.cursoformflag = true;
       $scope.cursoflag = true;
+      $scope.flag = true;
+      $scope.flagError = false;
       $scope.queryCursos();
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 
@@ -382,8 +430,12 @@ app.controller('panelAdmin',['$scope','$http',function($scope, $http){
       $scope.mensaje = response.data;
       $scope.displayUnidad($scope.idcurso);
       $scope.unidadformflag = true;
+      $scope.flag = true;
+      $scope.flagError = false;
     }, function errorCallback(response, data){
-      $scope.mensaje = response.data;
+      $scope.error = response.data;
+      $scope.flagError = true;
+      $scope.flag = false;
     })
   }
 

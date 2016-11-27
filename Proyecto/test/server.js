@@ -216,6 +216,13 @@ app.get('/errorPermisos', function(req, res){
   app.use(express.static(__dirname + '/config'));
 });
 
+app.get('/seleccionarUnidad', function(req, res){
+  res.sendfile(__dirname + '/Views/seleccionarUnidad.html');
+  app.use(express.static(__dirname + '/Views/css'));
+  app.use(express.static(__dirname + '/app'));
+  app.use(express.static(__dirname + '/config'));
+});
+
 app.get('/panel', panelRedirect, function(req, res){
 
 });
@@ -380,6 +387,8 @@ app.post('/updateUnidad', function(req, res){
   var updateUnidad = new unidadCRUD(req.body.idUnidad, req.body.idCurso, req.body.nombreUnidad);
   updateUnidad.update(res);
 });
+
+
 
 /** FUNCIONES DE PERMISOS DE USUARIO **/
 

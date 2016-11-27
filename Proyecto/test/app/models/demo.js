@@ -54,4 +54,13 @@ $( function() {
       $container.off('click','.bloque');
       });
     });
+  $('#guardar').click(function(){
+    var result = prompt("Ingrese\n"+
+                          "1: asimilador\n"+
+                          "2: convergente\n"+
+                          "3: divergente\n"+
+                          "4: asimilador\n"
+                        );
+    var alerta = alert("Contenido guardado existosamente");
+  });
   });

@@ -14,15 +14,17 @@
             margin-bottom: 0;
             border-radius: 0;
         }
-
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 720px}
-
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
             background-color: #f1f1f1;
             height: 100%;
+        }
+        .page-header{
+          text-align: center;
+          background-color: white;
         }
         .container-fluid text-center{
             min-height:100%;
@@ -33,11 +35,6 @@
             color: white;
             padding: 15px;
         }
-
-        .page-header{
-          text-align: center;
-        }
-
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -46,12 +43,12 @@
             }
             .row.content {height:auto;}
         }
-
         body{
             min-height: 100%;
             height: 100%;
             margin: 0 auto;
             padding: 0 auto;
+
         }
         .row.content{
           min-height: 100%;
@@ -59,7 +56,12 @@
         .sidenav{
           min-height: 100%;
         }
-
+        .row-eq-height {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display:         flex;
+        }
     </style>
 </head>
 <body ng-app = "myApp">
@@ -74,15 +76,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/">Inicio</a></li>
-                <li class="active"><a href="/panel">Panel</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contacto</a></li>
+                <li class="active"><a href="/">Inicio</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contacto</a></li>
             </ul>
             <!--
             <ul class="nav navbar-nav navbar-right">
@@ -100,58 +100,78 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <h1>¡Hola Administrador!</h1>
-          <div class="col-sm-7 col-sm-offset-3">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crear Usuario
-              </button>
-              </a>
+          <div ng-show="unidadflag">
+          <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Listado de Cursos</h1>
+          <div ng-show="flag">
+            <div class="alert alert-success">
+              <strong>{{mensaje}}</strong>
+            </div>
+          </div>
+          <div ng-show="flagError">
+            <div class="alert alert-danger">
+              <strong>{{error}}</strong>
+            </div>
+          </div>
 
-              <a href="/modificarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Modificar  Usuario
-              </button>
-              </a>
+          <!--action="/panelAdmin" method="post" name ="formulario"-->
+          <div class="col-sm-6 col-sm-offset-3">
 
-              <a href="/eliminarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Eliminar Usuario
-              </button>
-              </a>
+                <div class="panel panel-default">
+                  <!-- Table -->
+                    <table class="table" style="table-layout:fixed">
+
+                      <thead>
+                        <tr>
+                          <th> ID Curso </th>
+                          <th> Nombre Curso </th>
+                        </tr>
+                      </thead>
+
+                    <tbody>
+                      <div  class="col-sm-6 col-sm-offset-3">
+                        <tr ng-repeat="result in resultadosQuery">
+                          <th><h3>{{result.ID_curso}}</h3></th>
+                          <th><h3>{{result.Nombre_Curso}}</h3></th>
+                          <th><button class="btn btn-warning" ng-click="displayUnidad(result.ID_curso)">Agregar Unidad</button></th>
+                        </tr>
+                      </div>
+
+                    </tbody>
+
+                    </table>
+                </div>
+                <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+            </div>
+          </div>
+          <div ng-hide="unidadflag">
+            <h1><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Ingrese el nombre de la nueva unidad</h1>
+            <div ng-show="flag">
+              <div class="alert alert-success">
+                <strong>{{mensaje}}</strong>
+              </div>
+            </div>
+            <div ng-show="flagError">
+              <div class="alert alert-danger">
+                <strong>{{error}}</strong>
+              </div>
             </div>
 
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
-              </button>
-              </a>
+            <!--action="/panelAdmin" method="post" name ="formulario"-->
+            <div class="col-sm-6 col-sm-offset-3">
 
-              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
-              </button>
-              </a>
+              <form>
 
-              <a href="/seleccionarUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
-              </button>
-              </a>
+                <div class="form-group">
+                  <label>Nombre nueva unidad</label>
+                  <input type="text" class="form-control" ng-model = "unidad.nombreUnidad" name = "nombreUnidad" required="required">
+                </div>
 
-            </div>
-
-            <div class="btn-group btn-group-center" role="group" aria-label="...">
-              <a href="/eliminarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Eliminar Curso o Unidad
-              </button>
-              </a>
-
-              <a href="/modificarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Modificar Curso o Unidad
-              </button>
-              </a>
-
+                <button class="btn btn-warning btn-lg" ng-click="insertarUnidad()">Enviar</button>
+                <a href="javascript:history.back()" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align"> Volver </a>
+              </form>
             </div>
           </div>
         </div>
-
         <!--Contenido columna derecha-->
         <div class="col-sm-2 sidenav">
 
@@ -160,12 +180,14 @@
     </div>
 </div>
 
+
+
 <!-- contenido footer-->
 <footer class="container-fluid text-center">
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
-<script src="/app.js"></script>
-<script src="/panelAdmin.js"></script>
+<script src="app.js"></script>
+<script src="/controllers/panelAdmin.js"></script>
 </body>
 
 </html>

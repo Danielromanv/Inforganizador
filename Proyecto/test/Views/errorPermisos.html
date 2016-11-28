@@ -24,6 +24,11 @@
             background-color: #f1f1f1;
             height: 100%;
         }
+
+        .page-header{
+          text-align: center;
+        }
+
         .container-fluid text-center{
             min-height:100%;
         }
@@ -32,10 +37,6 @@
             background-color: #555;
             color: white;
             padding: 15px;
-        }
-
-        .page-header{
-          text-align: center;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -74,15 +75,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/">Inicio</a></li>
-                <li class="active"><a href="/panel">Panel</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contacto</a></li>
+                <li class="active"><a href="/">Inicio</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contacto</a></li>
             </ul>
             <!--
             <ul class="nav navbar-nav navbar-right">
@@ -99,56 +98,37 @@
         </div>
 
         <!--Contenido principal-->
-        <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <h1>¡Hola Administrador!</h1>
-          <div class="col-sm-7 col-sm-offset-3">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crear Usuario
-              </button>
-              </a>
+        <div class="col-sm-8 text-left">
+          <div class="container">
+          <style>
+              .jumbotron {
+                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
+                  background-size: cover;
+                  background-color: transparent;
+              }
+              h1{
+                  color: Black;
+              }
 
-              <a href="/modificarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Modificar  Usuario
-              </button>
-              </a>
+              body{
 
-              <a href="/eliminarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Eliminar Usuario
-              </button>
-              </a>
-            </div>
+                  /**background-image: url(http://i781.photobucket.com/albums/yy94/PipexxSprites/galaxy-1107751_1280_zps9x8tf4iv.jpg);**/
+                  background-repeat: inherit;
+                  background-size: cover;
+                  min-height: 100%;
+              }
 
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
-              </button>
-              </a>
+          </style>
 
-              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
-              </button>
-              </a>
+              <div class="jumbotron text-center">
+                  <h1><font color = "black">INFORGANIZADOR</font></h1>
+                  <h5><font color = "black">Organizador de contenido según perfil de aprendizaje</font></h5>
 
-              <a href="/seleccionarUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
-              </button>
-              </a>
 
-            </div>
+                  <h1> NO TIENES PERMISOS DE ACCESO A ESA SECCIÓN DE LA PÁGINA </h1>
+                  <a href="/" button type="button" class="btn btn-warning" aria-label="Left Align"> Home </a>
+              </div>
 
-            <div class="btn-group btn-group-center" role="group" aria-label="...">
-              <a href="/eliminarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Eliminar Curso o Unidad
-              </button>
-              </a>
-
-              <a href="/modificarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Modificar Curso o Unidad
-              </button>
-              </a>
-
-            </div>
           </div>
         </div>
 
@@ -164,8 +144,8 @@
 <footer class="container-fluid text-center">
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
-<script src="/app.js"></script>
-<script src="/panelAdmin.js"></script>
+<script src="app.js"></script>
+>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 
 
-app.controller('panelAdmin',['$scope','$http',function($scope, $http){
+app.controller('panelAlumno',['$scope','$http',function($scope, $http){
   $scope.usuarioflag = true;
   $scope.cursoflag = true;
   $scope.unidadflag = true;

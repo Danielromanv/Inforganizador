@@ -1,30 +1,28 @@
-
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Inforganizador</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="demo.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-animate.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
             margin-bottom: 0;
             border-radius: 0;
         }
-
         .page-header{
           text-align: center;
         }
-
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 720px}
-
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
@@ -40,7 +38,6 @@
             color: white;
             padding: 15px;
         }
-
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -49,23 +46,15 @@
             }
             .row.content {height:auto;}
         }
-
         body{
             min-height: 100%;
             height: 100%;
             margin: 0 auto;
             padding: 0 auto;
         }
-        .row.content{
-          min-height: 100%;
-        }
-        .sidenav{
-          min-height: 100%;
-        }
-
     </style>
 </head>
-<body ng-app = "encuestaApp">
+<body ng-app = "myApp">
 <div class="page-header">
     <h1>INFORGANIZADOR <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
 </div>
@@ -84,6 +73,7 @@
                 <li class="active"><a href="/">Inicio</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contacto</a></li>
+                <li><a href="javascript:history.back()" button type="button"> Volver </a><li>
             </ul>
             <!--
             <ul class="nav navbar-nav navbar-right">
@@ -97,39 +87,79 @@
     <div class="row content">
         <!--Contenido columna Izquierda.-->
         <div class="col-sm-2 sidenav">
-        </div>
+
+            <div class="well">
+              <a class="btn btn-default" button id="add-pdf">Añadir bloque con PDF</a>
+
+                <!-- contenido raro -->
+            </div>
+
+            <div class="well">
+                <!-- contenido raro -->
+                <a class="btn btn-default" button id="add-pic">Añadir bloque con Imagen</a>
+            </div>
+            <div class="well">
+              <a class="btn btn-default" button id="borrar">Remover bloque</a>
+                <!-- contenido raro -->
+            </div>
+            <div class="well">
+              <a class="btn btn-default" button id="guardar">guardar</a>
+            </div>
+          </div>
         <!--Contenido principal-->
-        <div class="col-sm-8 text-left" ng-controller="encuestaController">
-            <h3>En la siguiente página se te pide que completes 12 frases. Cada frase puede terminarse de cuatro formas distintas<br>
-                Ordena la cuatro opciones de cada frase según pienses que se ajustan a tu manera de aprender algo nuevo, tal vez<br>
-                en tu trabajo. Trata de pensar en situaciones recientes en las que te enfrentaste con algo nuevo. Numera con un 4<br>
-                la terminación que mejor se ajuste a tu forma de aprender y con un 1 la que peor se ajuste. Asegurate de asignar<br>
-                un número a todas las terminaciones de cada una de las 12 frases.<br></h3>
-
-            <b>Recuerde</b><br>
-            <b>4 --></b> Lo que más se parece a ti.<br>
-            <b>3 --></b> Lo segundo que más se parece a ti.<br>
-            <b>2 --></b> Lo tercero que más se parece a ti.<br>
-            <b>1 --></b> Lo que menos se parece a ti.<br>
-            <hr>
-
-            <div ng-view></div>
+        <div class="col-sm-8 text-left" >
+          <div class = "packery">
+          </div>
         </div>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+        <script src='http://npmcdn.com/packery@2/dist/packery.pkgd.min.js'></script>
+        <script src='http://draggabilly.desandro.com/draggabilly.pkgd.js'></script>
+
+          <script src="models/demo.js"></script>
 
         <!--Contenido columna derecha-->
-        <div class="col-sm-2 sidenav">
-
-
-        </div>
     </div>
 </div>
+
 
 <!-- contenido footer-->
 <footer class="container-fluid text-center">
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
 <script src="app.js"></script>
-<script src="/controllers/encuestaController.js"></script>
 </body>
 
 </html>
+
+<!---
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Demo display contenido</title>
+
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+
+    <link href="demo.css" rel="stylesheet" type="text/css">
+
+  </head>
+  <body>
+
+  <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span> Logout</a>
+    <h1>Unidad o Tema a mostrar</h1>
+<div class="packery">
+</div>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+<script src='http://npmcdn.com/packery@2/dist/packery.pkgd.min.js'></script>
+<script src='http://draggabilly.desandro.com/draggabilly.pkgd.js'></script>
+
+  <script src="models/demo.js"></script>
+
+
+
+  </body>
+</html>*/
+-->

@@ -14,6 +14,9 @@
             margin-bottom: 0;
             border-radius: 0;
         }
+        .page-header{
+          text-align: center;
+        }
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 720px}
@@ -32,10 +35,6 @@
             background-color: #555;
             color: white;
             padding: 15px;
-        }
-
-        .page-header{
-          text-align: center;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -64,7 +63,7 @@
 </head>
 <body ng-app = "myApp">
 <div class="page-header">
-    <h1>INFORGANIZADOR <br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
+    <h1>INFORGANIZADOR<br><small>Organizador de contenido para distintos tipos de aprendizaje</small></h1>
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -74,15 +73,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/">Inicio</a></li>
-                <li class="active"><a href="/panel">Panel</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contacto</a></li>
+                <li class="active"><a href="/">Inicio</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contacto</a></li>
             </ul>
             <!--
             <ul class="nav navbar-nav navbar-right">
@@ -100,51 +97,24 @@
 
         <!--Contenido principal-->
         <div class="col-sm-8 text-center" ng-controller = "panelAdmin">
-          <h1>¡Hola Administrador!</h1>
+          <h1>¡Hola Alumno!</h1>
           <div class="col-sm-7 col-sm-offset-3">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crear Usuario
-              </button>
-              </a>
-
-              <a href="/modificarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Modificar  Usuario
-              </button>
-              </a>
-
-              <a href="/eliminarUsuario" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Eliminar Usuario
-              </button>
-              </a>
-            </div>
-
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-              <a href="/crearCurso" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Curso
-              </button>
-              </a>
-
-              <a href="/crearUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Crear Unidad
-              </button>
-              </a>
-
-              <a href="/seleccionarUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Agregar Contenido
-              </button>
-              </a>
-
-            </div>
 
             <div class="btn-group btn-group-center" role="group" aria-label="...">
-              <a href="/eliminarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Eliminar Curso o Unidad
+
+              <a href="/cursos" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Cursos Disponibles
               </button>
               </a>
 
-              <a href="/modificarCursoUnidad" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
-                <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Modificar Curso o Unidad
+
+              <a href="/editarPerfil" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Editar Perfil
+              </button>
+              </a>
+
+              <a href="/verPerfil" button type="button" class="btn btn-primary btn-lg" aria-label="Left Align">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Ver Perfil
               </button>
               </a>
 
@@ -164,8 +134,8 @@
 <footer class="container-fluid text-center">
     <p>Desarrollado por Flying Ideas.</p>
 </footer>
-<script src="/app.js"></script>
-<script src="/panelAdmin.js"></script>
+<script src="app.js"></script>
+<script src="/controllers/panelAdmin.js"></script>
 </body>
 
 </html>
